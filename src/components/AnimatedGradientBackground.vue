@@ -1,0 +1,113 @@
+<template>
+  <div class="gradient-bg">
+    <div class="gradients-container">
+      <div v-for="n in 4" :key="n" :class="`blob color-${n}`"></div>
+    </div>
+  </div>
+  
+  </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { gsap } from 'gsap';
+
+onMounted(() => {
+  const blobs = gsap.utils.toArray(".blob");
+  const container = document.querySelector(".gradients-container");
+
+  // یک تابع برای حرکت دادن هر blob به یک موقعیت تصادفی
+  function moveBlob(blob) {
+    gsap.to(blob, {
+      // استفاده از xPercent و yPercent برای حرکت نسبت به اندازه خود blob
+      // این باعث می‌شود انیمیشن در سایزهای مختلف صفحه بهتر عمل کند
+      xPercent: gsap.utils.random(-60, 60),
+      yPercent: gsap.utils.random(-60, 60),
+      
+      // مدت زمان انیمیشن بین 5 تا 10 ثانیه به صورت تصادفی
+      duration: gsap.utils.random(1, 3),
+      ease: "power1.inOut",
+      
+      // وقتی انیمیشن تمام شد، دوباره تابع را برای همین blob صدا بزن (ایجاد لوپ بی‌نهایت)
+      onComplete: () => moveBlob(blob)
+    });
+  }
+
+  // برای هر blob، انیمیشن را برای اولین بار شروع کن
+  blobs.forEach(blob => moveBlob(blob));
+});
+</script>
+
+<style scoped>
+.gradient-bg {
+  /* این کانتینر اصلی است که کل صفحه را می‌پوشاند */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* اطمینان از اینکه blob ها از صفحه بیرون نمی‌زنند */
+  z-index: -1;
+}
+
+.gradients-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  filter: blur(200px); /* ★★★ جادوی اصلی اینجاست! با این مقدار بازی کنید */
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%; /* دایره‌ای کردن blob ها */
+  opacity: 0.7; /* کمی شفافیت برای ترکیب بهتر رنگ‌ها */
+  top: 60%;
+  left: 40%;
+  /* موقعیت اولیه blob ها در چهار گوشه */
+}
+
+/* ▼▼▼ اینجا رنگ و اندازه را مدیریت کنید ▼▼▼ */
+
+/* --- مدیریت اندازه --- */
+.blob {
+  width: 600px;
+  height: 600px;
+}
+/* می‌توانید اندازه‌های مختلف داشته باشید */
+/* .blob.large { width: 600px; height: 600px; } */
+/* .blob.small { width: 200px; height: 200px; } */
+
+
+/* --- مدیریت رنگ --- */
+.color-1 {
+  top: 0;
+  left: 0;
+  background-color: #ff7231bd; /* صورتی */
+  top: 30%;
+  left: 40% !important;
+}
+
+.color-2 {
+  top: 0;
+  right: 0;
+  background-color: #cc00ff85; /* آبی آسمانی */
+  top: 10%;
+  left: 30% !important;
+}
+
+.color-3 {
+  bottom: 0;
+  left: 0;
+  background-color: #f831ff00; /* سبز روشن  */
+  left: 20% !important;
+}
+
+.color-4 {
+  bottom: 0;
+  right: 0;
+  background-color: #1ca0f88e; /* زرد */
+  top: 30%;
+  left: 40% !important;
+}
+
+/* ▲▲▲ اینجا رنگ و اندازه را مدیریت کنید ▲▲▲ */
+</style>
