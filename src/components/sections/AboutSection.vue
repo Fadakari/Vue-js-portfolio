@@ -1,3 +1,4 @@
+
 <template>
   <section id="about" class="about-section">
     <div class="section-content">
@@ -5,7 +6,7 @@
         <h2 class="section-title">About Me</h2>
         <div class="content-wrapper">
           <div class="profile-image-container">
-            <img src="../../assets/me.jpg" alt="Your Name" class="profile-image">
+            <img :src="profileImage" alt="Your Name" class="profile-image">
           </div>
           <div class="about-text-content">
              <p class="about-me-text">
@@ -23,7 +24,9 @@
     </div>
   </section>
 </template>
-
+<script setup lang="ts">
+import profileImage from '@/assets/me.jpg';
+</script>
 <style scoped>
 .about-section {
   display: flex !important;

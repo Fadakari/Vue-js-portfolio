@@ -23,21 +23,33 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
+import vueIcon from '@/assets/icons/vue.svg';
+import typescriptIcon from '@/assets/icons/typescript.svg';
+import javascriptIcon from '@/assets/icons/javascript.svg';
+import pythonIcon from '@/assets/icons/python.svg';
+import viteIcon from '@/assets/icons/vitejs.svg';
+import flaskIcon from '@/assets/icons/flask_dark.svg';
+import tailwindIcon from '@/assets/icons/tailwindcss.svg';
+import githubIcon from '@/assets/icons/GitHub_dark.svg';
+import mysqlIcon from '@/assets/icons/mysql.svg';
+
 // ★ ref برای دسترسی به عنصر در اسکریپت
 const sectionContentRef = ref<HTMLElement | null>(null);
 
 // لیست مهارت‌ها
 const skills = ref([
-  { name: 'Vue.js', icon: 'public/icons/vue.svg', discription: 'Advanced', style: 'border: 1px solid #00ca33' },
-  { name: 'TypeScript', icon: 'public/icons/typescript.svg', discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'JavaScript', icon: 'Public/icons/javascript.svg', discription: 'Advanced', style: 'border: 1px solid #00ca33' },
-  { name: 'Python', icon: 'public/icons/python.svg', discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Vite', icon: 'public/icons/vitejs.svg', discription: 'Beginner', style: 'border: 1px solid #ff0800' },
-  { name: 'Flask', icon: 'public/icons/flask_dark.svg', discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Tailwind', icon: 'public/icons/tailwindcss.svg', discription: 'Beginner', style: 'border: 1px solid #ff0800' },
-  { name: 'Github', icon: 'public/icons/GitHub_dark.svg', discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Mysql', icon: 'public/icons/mysql.svg', discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  // از متغیرهای وارد شده به جای رشته استفاده کنید
+  { name: 'Vue.js', icon: vueIcon, discription: 'Advanced', style: 'border: 1px solid #00ca33' },
+  { name: 'TypeScript', icon: typescriptIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'JavaScript', icon: javascriptIcon, discription: 'Advanced', style: 'border: 1px solid #00ca33' },
+  { name: 'Python', icon: pythonIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'Vite', icon: viteIcon, discription: 'Beginner', style: 'border: 1px solid #ff0800' },
+  { name: 'Flask', icon: flaskIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'Tailwind', icon: tailwindIcon, discription: 'Beginner', style: 'border: 1px solid #ff0800' },
+  { name: 'Github', icon: githubIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'Mysql', icon: mysqlIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
 ]);
+
 
 
 </script>

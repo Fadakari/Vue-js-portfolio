@@ -68,6 +68,7 @@ const handleSubmit = (event: Event) => {
   align-items: center;
   height: 100vh;
   padding-top: 7rem;
+  padding-bottom: 7rem;
 }
 
 .section-content {

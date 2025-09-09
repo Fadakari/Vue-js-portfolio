@@ -31,6 +31,7 @@
 import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import projectStockImage from '@/assets/image.png';
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +42,7 @@ const projects = ref([
   {
     title: 'Stock platform development', 
     description: 'Development of the Android Stock platform and application for buying and selling goods at Hilti Heydari Company',
-    image: 'src/assets/image.png',
+    image: projectStockImage,
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Python/Flask', 'Kotlin'],
     liveUrl: 'https://stockdivar.ir',
     githubUrl: 'https://github.com/Fadakari/stock_app',
