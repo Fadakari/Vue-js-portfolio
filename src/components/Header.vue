@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { gsap } from 'gsap';
-// ★ ScrollToPlugin را برای اسکرول نرم وارد می‌کنیم
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 gsap.registerPlugin(ScrollToPlugin);
 
 const mainScroller = ref<HTMLElement | null>(null);
 const isScrolled = ref(false);
-const isMobileMenuOpen = ref(false); // ★ وضعیت منوی موبایل
+const isMobileMenuOpen = ref(false);
 
 const handleScroll = () => {
   if (mainScroller.value) {
@@ -16,7 +15,6 @@ const handleScroll = () => {
   }
 };
 
-// ★ تابع برای بستن و باز کردن منوی موبایل
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
@@ -38,7 +36,7 @@ onUnmounted(() => {
 });
 
 const scrollToSection = (event: MouseEvent, id: string) => {
-  event.preventDefault(); // ★★★ این خط اضافه شد تا از پرش صفحه جلوگیری کند
+  event.preventDefault();
 
   const customEvent = new CustomEvent('navigateToSection', { detail: { sectionId: id } });
   window.dispatchEvent(customEvent);
@@ -90,7 +88,6 @@ const scrollToSection = (event: MouseEvent, id: string) => {
 </template>
 
 <style scoped>
-/* --- استایل‌های اصلی هدر --- */
 .main-header {
   position: fixed;
   top: 0;
@@ -100,6 +97,7 @@ const scrollToSection = (event: MouseEvent, id: string) => {
   transition: background-color 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease;
   color: #e0e0e0;
   font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(15px);
 }
 .header-content {
   display: flex;
@@ -169,13 +167,12 @@ const scrollToSection = (event: MouseEvent, id: string) => {
   transform-origin: bottom left;
 }
 
-/* --- استایل‌های ریسپانسیو و منوی موبایل --- */
 .hamburger-button {
-  display: none; /* در دسکتاپ مخفی */
+  display: none;
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1010; /* بالاتر از همه چیز باشد */
+  z-index: 1010;
   padding: 10px;
 }
 .hamburger-button .line {
@@ -198,7 +195,7 @@ const scrollToSection = (event: MouseEvent, id: string) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translateX(100%); /* در ابتدا خارج از صفحه */
+  transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 999;
 }
@@ -214,16 +211,14 @@ const scrollToSection = (event: MouseEvent, id: string) => {
 .mobile-nav-links li a {
   color: #fff;
   text-decoration: none;
-  font-size: 2rem; /* فونت بزرگ برای لمس راحت */
+  font-size: 2rem;
   font-weight: 600;
 }
 
 
-/* ★★★ حالت منوی باز ★★★ */
 .main-header.menu-open .mobile-menu-panel {
-  transform: translateX(0); /* منو وارد صفحه شود */
+  transform: translateX(0);
 }
-/* انیمیشن دکمه همبرگری به "X" */
 .main-header.menu-open .line1 {
   transform: rotate(45deg) translate(6px, 6px);
 }
@@ -235,16 +230,15 @@ const scrollToSection = (event: MouseEvent, id: string) => {
 }
 
 
-/* Media Query برای موبایل */
 @media (max-width: 768px) {
   .header-content {
     padding: 1rem 1.5rem;
   }
   .desktop-nav {
-    display: none; /* منوی دسکتاپ مخفی شود */
+    display: none;
   }
   .hamburger-button {
-    display: block; /* دکمه همبرگری نمایش داده شود */
+    display: block;
   }
 }
 </style>

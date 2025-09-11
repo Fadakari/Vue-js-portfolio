@@ -2,9 +2,9 @@
   <section id="projects" class="projects-section" ref="projectsSectionRef">
     <div class="section-content internal-scroll">
       <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
+        <h2 class="section-title anim-stagger">Featured Projects</h2>
         <div class="projects-grid">
-          <div v-for="project in projects" :key="project.title" class="project-card">
+          <div v-for="project in projects" :key="project.title" class="project-card anim-stagger">
             <div class="card-image-container">
               <img :src="project.image" :alt="project.title" class="card-image" />
             </div>
@@ -33,11 +33,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectStockImage from '@/assets/image.png';
 
-// gsap.registerPlugin(ScrollTrigger);
 
-// const projectsSectionRef = ref(null);
 
-// ★ لیست پروژه‌های خود را اینجا وارد کنید
 const projects = ref([
   {
     title: 'Stock platform development', 
@@ -47,22 +44,7 @@ const projects = ref([
     liveUrl: 'https://stockdivar.ir',
     githubUrl: 'https://github.com/Fadakari/stock_app',
   },
-  {
-    title: 'Data Visualization Dashboard',
-    description: 'An interactive dashboard for visualizing real-time data using GSAP and Chart.js.',
-    image: '/projects/project-2.jpg',
-    tags: ['Vue.js', 'GSAP', 'REST API', 'TypeScript'],
-    liveUrl: '#',
-    githubUrl: '#',
-  },
-  {
-    title: 'Portfolio Website',
-    description: 'A personal portfolio website built with a focus on animations and user experience.',
-    image: '/projects/project-3.jpg',
-    tags: ['Vue.js', 'GSAP', 'Figma'],
-    liveUrl: '#',
-    githubUrl: '#',
-  },
+
 ]);
 
 </script>
@@ -86,7 +68,6 @@ const projects = ref([
   position: relative;
   z-index: 2;
 }
-/* مخفی کردن ظاهر اسکرول‌بار داخلی */
 .section-content::-webkit-scrollbar {
   display: none;
 }
@@ -96,7 +77,6 @@ const projects = ref([
 }
 
 
-/* لایه پوششی برای خوانایی بهتر متن روی عکس */
 
 .container {
   position: relative;
@@ -118,7 +98,6 @@ const projects = ref([
   gap: 2rem;
 }
 
-/* ★ استایل کارت‌های شیشه‌ای */
 .project-card {
   background-color: rgba(30, 41, 59, 0.6);
   backdrop-filter: blur(12px);
@@ -158,7 +137,7 @@ const projects = ref([
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* باعث می‌شود فوتر کارت به پایین بچسبد */
+  flex-grow: 1;
 }
 
 .card-title {
@@ -190,7 +169,7 @@ const projects = ref([
 }
 
 .card-footer {
-  margin-top: auto; /* ★ فوتر را به پایین کارت هل می‌دهد */
+  margin-top: auto;
   display: flex;
   gap: 1rem;
 }

@@ -2,12 +2,12 @@
   <section id="contact" class="contact-section">
     <div class="section-content internal-scroll">
       <div class="container">
-        <h2 class="section-title">Get in Touch</h2>
-        <p class="section-subtitle">
+        <h2 class="section-title anim-stagger">Get in Touch</h2>
+        <p class="section-subtitle anim-stagger">
           I'm always open to discussing new projects or partnership opportunities. Feel free to send me a message.
         </p>
         
-        <div class="contact-wrapper">
+        <div class="contact-wrapper anim-stagger">
           <form class="contact-form" @submit.prevent="handleSubmit">
             <div class="form-group">
               <input type="text" id="name" name="name" required placeholder="Your Name">
@@ -53,8 +53,6 @@
 
 <script setup lang="ts">
 const handleSubmit = (event: Event) => {
-  // در اینجا می‌توانید منطق ارسال فرم را به یک سرویس مثل Formspree یا Netlify متصل کنید.
-  // در حال حاضر فقط یک هشدار نمایش می‌دهیم.
   alert('Thank you for your message! I will get back to you soon.');
   (event.target as HTMLFormElement).reset();
 };
@@ -81,13 +79,12 @@ const handleSubmit = (event: Event) => {
   padding: 8rem 2rem 4rem;
 }
 
-/* مخفی کردن ظاهر اسکرول‌بار داخلی برای زیبایی */
 .section-content::-webkit-scrollbar {
   display: none;
 }
 .section-content {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 
@@ -113,7 +110,7 @@ const handleSubmit = (event: Event) => {
 
 .contact-wrapper {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* فرم دو برابر بزرگتر از اطلاعات تماس */
+  grid-template-columns: 2fr 1fr;
   gap: 3rem;
   background-color: rgba(30, 41, 59, 0.4);
   backdrop-filter: blur(12px);
@@ -123,7 +120,6 @@ const handleSubmit = (event: Event) => {
   text-align: left;
 }
 
-/* --- استایل فرم --- */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -157,10 +153,9 @@ const handleSubmit = (event: Event) => {
   left: 0;
   color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s;
-  pointer-events: none; /* اجازه می‌دهد کلیک از روی لیبل عبور کند */
+  pointer-events: none;
 }
 
-/* انیمیشن لیبل‌ها */
 .form-group input:focus + label,
 .form-group input:not(:placeholder-shown) + label,
 .form-group textarea:focus + label,
@@ -185,7 +180,7 @@ const handleSubmit = (event: Event) => {
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  align-self: flex-start; /* دکمه در ابتدای محور افقی قرار گیرد */
+  align-self: flex-start;
 }
 
 .submit-button:hover {
@@ -193,7 +188,6 @@ const handleSubmit = (event: Event) => {
   transform: translateY(-3px);
 }
 
-/* --- استایل اطلاعات تماس --- */
 .contact-info {
   display: flex;
   flex-direction: column;
@@ -232,10 +226,9 @@ const handleSubmit = (event: Event) => {
   transform: scale(1.1);
 }
 
-/* --- استایل ریسپانسیو --- */
 @media (max-width: 992px) {
   .contact-wrapper {
-    grid-template-columns: 1fr; /* تک ستونه شدن */
+    grid-template-columns: 1fr;
     padding: 2rem;
   }
   .contact-info {

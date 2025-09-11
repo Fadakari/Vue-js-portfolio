@@ -19,23 +19,40 @@ const changeSection = (newIndex: number) => {
     return;
   }
   isAnimating = true;
+
   const currentSection = sections.value[currentSectionIndex];
   const nextSection = sections.value[newIndex];
-  const currentElements = gsap.utils.toArray(currentSection.querySelectorAll('.section-content > *'));
-  const nextElements = gsap.utils.toArray(nextSection.querySelectorAll('.section-content > *'));
+  
+  const currentElements = gsap.utils.toArray(currentSection.querySelectorAll('.anim-stagger'));
+  const nextElements = gsap.utils.toArray(nextSection.querySelectorAll('.anim-stagger'));
   const direction = newIndex > currentSectionIndex ? 1 : -1;
 
-  gsap.set(nextSection, { autoAlpha: 1 });
-  gsap.from(nextElements, { y: direction * 60, autoAlpha: 0, stagger: 0.1, duration: animationDuration * 0.6, ease: 'power3.out' });
-  gsap.to(currentElements, {
-    y: -direction * 60, autoAlpha: 0, stagger: 0.05, duration: animationDuration * 0.5, ease: 'power3.in',
+  const tl = gsap.timeline({
     onComplete: () => {
       gsap.set(currentSection, { autoAlpha: 0 });
-      gsap.set(currentElements, { y: 0, autoAlpha: 1 });
+      gsap.set(currentElements, { clearProps: 'all' });
       currentSectionIndex = newIndex;
-      setTimeout(() => { isAnimating = false; }, 300);
+      isAnimating = false;
     }
   });
+
+  gsap.set(nextSection, { autoAlpha: 1 });
+
+  tl.to(currentElements, {
+    y: -direction * 50,
+    autoAlpha: 0,
+    stagger: 0.07,
+    duration: animationDuration * 0.4,
+    ease: 'power3.in',
+  });
+
+  tl.from(nextElements, {
+    y: direction * 50,
+    autoAlpha: 0,
+    stagger: 0.12,
+    duration: animationDuration * 0.6,
+    ease: 'power3.out',
+  }, "-=0.4");
 };
 
 const handleWheel = (event: WheelEvent) => {
@@ -62,53 +79,41 @@ const handleWheel = (event: WheelEvent) => {
 };
 
 let touchStartY = 0;
-// ★★★ متغیر برای ذخیره عنصر لمس شده
 let touchTarget: HTMLElement | null = null; 
 
 const handleTouchStart = (event: TouchEvent) => {
   touchStartY = event.touches[0].clientY;
-  // ★★★ ذخیره عنصری که لمس از آنجا شروع شده
   touchTarget = event.touches[0].target as HTMLElement;
 };
 
-// ★★★ تابع handleTouchEnd با منطق جدید و هوشمند ★★★
 const handleTouchEnd = (event: TouchEvent) => {
   if (isAnimating || !touchTarget) return;
 
   const touchEndY = event.changedTouches[0].clientY;
   const deltaY = touchEndY - touchStartY;
 
-  // فقط اگر کشیدن انگشت به اندازه کافی بلند بود، عمل کن
   if (Math.abs(deltaY) > 50) {
     const scrollableContent = touchTarget.closest('.internal-scroll');
 
-    // اگر در حال لمس یک محتوای قابل اسکرول داخلی هستیم
     if (scrollableContent) {
       const { scrollTop, scrollHeight, clientHeight } = scrollableContent;
-      // تلورانس را برای موبایل کمی بیشتر در نظر می‌گیریم
       const epsilon = 5; 
 
-      // اگر انگشت به سمت بالا کشیده شده (رفتن به بخش بعدی)
-      // و هنوز به انتهای اسکرول نرسیده‌ایم، تابع را متوقف کن
       if (deltaY < 0 && scrollHeight - clientHeight - scrollTop > epsilon) {
         return;
       }
 
-      // اگر انگشت به سمت پایین کشیده شده (رفتن به بخش قبلی)
-      // و هنوز در ابتدای اسکرول نیستیم، تابع را متوقف کن
       if (deltaY > 0 && scrollTop > epsilon) {
         return;
       }
     }
 
-    // اگر کد به اینجا رسید، یعنی باید سکشن را عوض کنیم
-    if (deltaY < 0) { // کشیدن به سمت بالا (رفتن به بخش بعدی)
+    if (deltaY < 0) {
       changeSection(currentSectionIndex + 1);
-    } else { // کشیدن به سمت پایین (رفتن به بخش قبلی)
+    } else {
       changeSection(currentSectionIndex - 1);
     }
   }
-  // ★★★ پاک کردن متغیر در انتها
   touchTarget = null;
 };
 
@@ -154,7 +159,6 @@ onUnmounted(() => {
 </template>
 
 <style>
-/* استایل‌های عمومی App.vue (بدون تغییر) */
 html, body {
   overflow: hidden;
   height: 100%;

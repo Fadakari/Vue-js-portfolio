@@ -3,12 +3,12 @@
     <div class="section-content internal-scroll" ref="sectionContentRef">
       <div class="container">
         <div class="skills-content w-full pt-20">
-          <h2 class="section-title">My Tech Stack</h2>
-          <p class="section-description">
+          <h2 class="section-title anim-stagger">My Tech Stack</h2>
+          <p class="section-description anim-stagger">
             I specialize in creating modern, responsive, and high-performance web applications using cutting-edge technologies.
           </p>
         </div>
-        <div class="skills-grid">
+        <div class="skills-grid anim-stagger">
           <div v-for="skill in skills" :key="skill.name" class="skill-card">
             <img :src="skill.icon" :alt="skill.name" class="skill-icon" />
             <span class="skill-name">{{ skill.name }}</span>
@@ -33,12 +33,9 @@ import tailwindIcon from '@/assets/icons/tailwindcss.svg';
 import githubIcon from '@/assets/icons/GitHub_dark.svg';
 import mysqlIcon from '@/assets/icons/mysql.svg';
 
-// ★ ref برای دسترسی به عنصر در اسکریپت
 const sectionContentRef = ref<HTMLElement | null>(null);
 
-// لیست مهارت‌ها
 const skills = ref([
-  // از متغیرهای وارد شده به جای رشته استفاده کنید
   { name: 'Vue.js', icon: vueIcon, discription: 'Advanced', style: 'border: 1px solid #00ca33' },
   { name: 'TypeScript', icon: typescriptIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
   { name: 'JavaScript', icon: javascriptIcon, discription: 'Advanced', style: 'border: 1px solid #00ca33' },
@@ -58,28 +55,21 @@ const skills = ref([
 <style scoped>
 
 
-/* ★★★ تغییر کلیدی برای اسکرول داخلی ★★★ */
 .section-content {
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
   overflow-y: auto;
-  /* ★★★ حذف شد: دیگر نیازی به این خط نیست ★★★ */
-  /* overscroll-behavior-y: contain; */
-
-  /* برای جلوگیری از تکرار، فقط از یک پدینگ استفاده کنید */
   padding: 8rem 2rem 4rem;
 }
 
-/* مخفی کردن ظاهر اسکرول‌بار داخلی برای زیبایی */
 .section-content::-webkit-scrollbar {
   display: none;
 }
 .section-content {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-/* ★★★ پایان تغییرات ★★★ */
 
 
 .container {
@@ -109,7 +99,6 @@ const skills = ref([
   gap: 1.5rem;
 }
 
-/* بقیه استایل‌ها بدون تغییر باقی می‌مانند... */
 .skill-card {
   background-color: rgba(30, 41, 59, 0.37);
   border: 1px solid rgba(255, 255, 255, 0.1);
