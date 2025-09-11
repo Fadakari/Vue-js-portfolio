@@ -55,7 +55,7 @@ const scrollToSection = (event: MouseEvent, id: string) => {
   <header :class="{ 'main-header': true, 'scrolled': isScrolled, 'menu-open': isMobileMenuOpen }">
     <div class="header-content">
       <div class="header-left">
-        <a href="#" @click.prevent="scrollToSection('hero')" class="brand-name">Your Name</a>
+        <a href="#" @click.prevent="scrollToSection($event, 'hero')" class="brand-name">Your Name</a>
       </div>
       
       <nav class="header-right desktop-nav">
