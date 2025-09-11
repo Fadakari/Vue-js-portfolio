@@ -1,8 +1,8 @@
 :root {
-  --bg-color: #000000; /* آبی تیره */
-  --text-color: #e2e8f0; /* خاکستری روشن */
-  --primary-color: #38bdf8; /* آبی روشن */
-  --card-bg-color: #1e293b; /* کمی روشن‌تر از پس‌زمینه */
+  --bg-color: #000000;
+  --text-color: #e2e8f0;
+  --primary-color: #38bdf8;
+  --card-bg-color: #1e293b;
 }
 
 * {
@@ -14,7 +14,7 @@
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: 'Vazirmatn', sans-serif; /* یک فونت فارسی زیبا مثل وزیرمتن (باید به پروژه اضافه شود) */
+  font-family: 'Vazirmatn', sans-serif;
   line-height: 1.6;
 }
 
