@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, computed } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -45,15 +45,27 @@ const scrollToSection = (event: MouseEvent, id: string) => {
     isMobileMenuOpen.value = false;
   }
 };
+const props = defineProps({
+  currentSectionIndex: {
+    type: Number,
+    required: true,
+  }
+});
 
+const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
 
 </script>
 
 <template>
-  <header :class="{ 'main-header': true, 'scrolled': isScrolled, 'menu-open': isMobileMenuOpen }">
+  <header :class="{ 
+      'main-header': true, 
+      'scrolled': isScrolled, 
+      'menu-open': isMobileMenuOpen,
+      'deep-scrolled': isDeepScrolled 
+    }">
     <div class="header-content">
       <div class="header-left">
-        <a href="#" @click.prevent="scrollToSection($event, 'hero')" class="brand-name">Your Name</a>
+        <a href="#" @click.prevent="scrollToSection($event, 'hero')" class="brand-name">FADAKAR</a>
       </div>
       
       <nav class="header-right desktop-nav">
@@ -104,11 +116,17 @@ const scrollToSection = (event: MouseEvent, id: string) => {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 4rem;
-  transition: padding 0.4s ease;
+  transition: padding 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .main-header.scrolled .header-content {
-  padding: 1rem 4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.main-header.deep-scrolled .header-content {
+  padding-left: 15rem;
+  padding-right: 15rem;
 }
 
 .main-header.scrolled {
@@ -233,6 +251,10 @@ const scrollToSection = (event: MouseEvent, id: string) => {
 @media (max-width: 768px) {
   .header-content {
     padding: 1rem 1.5rem;
+  }
+  .main-header.deep-scrolled .header-content {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   .desktop-nav {
     display: none;

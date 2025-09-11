@@ -10,28 +10,28 @@ import ContactSection from './components/sections/ContactSection.vue';
 import AboutSection from './components/sections/AboutSection.vue';
 
 const sections = ref<HTMLElement[]>([]);
-let currentSectionIndex = 0;
+const currentSectionIndex = ref(0);
 let isAnimating = false;
 const animationDuration = 1.2;
 
 const changeSection = (newIndex: number) => {
-  if (isAnimating || newIndex < 0 || newIndex >= sections.value.length || newIndex === currentSectionIndex) {
+  if (isAnimating || newIndex < 0 || newIndex >= sections.value.length || newIndex === currentSectionIndex.value) {
     return;
   }
   isAnimating = true;
 
-  const currentSection = sections.value[currentSectionIndex];
+  const currentSection = sections.value[currentSectionIndex.value];
   const nextSection = sections.value[newIndex];
   
   const currentElements = gsap.utils.toArray(currentSection.querySelectorAll('.anim-stagger'));
   const nextElements = gsap.utils.toArray(nextSection.querySelectorAll('.anim-stagger'));
-  const direction = newIndex > currentSectionIndex ? 1 : -1;
+  const direction = newIndex > currentSectionIndex.value ? 1 : -1;
 
   const tl = gsap.timeline({
     onComplete: () => {
       gsap.set(currentSection, { autoAlpha: 0 });
       gsap.set(currentElements, { clearProps: 'all' });
-      currentSectionIndex = newIndex;
+      currentSectionIndex.value = newIndex;
       isAnimating = false;
     }
   });
@@ -72,9 +72,9 @@ const handleWheel = (event: WheelEvent) => {
   }
   event.preventDefault();
   if (scrollDirection === 'down') {
-    changeSection(currentSectionIndex + 1);
+    changeSection(currentSectionIndex.value + 1);
   } else {
-    changeSection(currentSectionIndex - 1);
+    changeSection(currentSectionIndex.value - 1);
   }
 };
 
@@ -109,9 +109,9 @@ const handleTouchEnd = (event: TouchEvent) => {
     }
 
     if (deltaY < 0) {
-      changeSection(currentSectionIndex + 1);
+      changeSection(currentSectionIndex.value + 1);
     } else {
-      changeSection(currentSectionIndex - 1);
+      changeSection(currentSectionIndex.value - 1);
     }
   }
   touchTarget = null;
@@ -147,7 +147,7 @@ onUnmounted(() => {
 
 <template>
   <AnimatedGradientBackground />
-  <Header />
+  <Header :current-section-index="currentSectionIndex" />
 
   <main>
     <HeroSection />
