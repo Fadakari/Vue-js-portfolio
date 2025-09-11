@@ -37,20 +37,18 @@ onUnmounted(() => {
   }
 });
 
-const scrollToSection = (id: string) => {
-  const section = document.getElementById(id);
-  if (section && mainScroller.value) {
-    gsap.to(mainScroller.value, {
-      duration: 1.2,
-      scrollTo: { y: section.offsetTop, autoKill: false },
-      ease: 'power3.out'
-    });
-  }
-  // ★ بعد از کلیک، منوی موبایل بسته شود
+const scrollToSection = (event: MouseEvent, id: string) => {
+  event.preventDefault(); // ★★★ این خط اضافه شد تا از پرش صفحه جلوگیری کند
+
+  const customEvent = new CustomEvent('navigateToSection', { detail: { sectionId: id } });
+  window.dispatchEvent(customEvent);
+
   if (isMobileMenuOpen.value) {
     isMobileMenuOpen.value = false;
   }
 };
+
+
 </script>
 
 <template>
@@ -62,11 +60,11 @@ const scrollToSection = (id: string) => {
       
       <nav class="header-right desktop-nav">
         <ul class="nav-links">
-          <li><a @click.prevent="scrollToSection('hero')" href="#hero">Home</a></li>
-          <li><a @click.prevent="scrollToSection('about')" href="#about">About</a></li>
-          <li><a @click.prevent="scrollToSection('skills')" href="#skills">Skills</a></li>
-          <li><a @click.prevent="scrollToSection('projects')" href="#projects">Projects</a></li>
-          <li><a @click.prevent="scrollToSection('contact')" href="#contact">Contact</a></li>
+          <li><a @click="scrollToSection($event, 'hero')" href="#hero">Home</a></li>
+          <li><a @click="scrollToSection($event, 'about')" href="#about">About</a></li>
+          <li><a @click="scrollToSection($event, 'skills')" href="#skills">Skills</a></li>
+          <li><a @click="scrollToSection($event, 'projects')" href="#projects">Projects</a></li>
+          <li><a @click="scrollToSection($event, 'contact')" href="#contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -80,11 +78,11 @@ const scrollToSection = (id: string) => {
     <div class="mobile-menu-panel">
         <nav>
             <ul class="mobile-nav-links">
-                <li><a @click.prevent="scrollToSection('hero')" href="#hero">Home</a></li>
-                <li><a @click.prevent="scrollToSection('about')" href="#about">About</a></li>
-                <li><a @click.prevent="scrollToSection('skills')" href="#skills">Skills</a></li>
-                <li><a @click.prevent="scrollToSection('projects')" href="#projects">Projects</a></li>
-                <li><a @click.prevent="scrollToSection('contact')" href="#contact">Contact</a></li>
+              <li><a @click="scrollToSection($event, 'hero')" href="#hero">Home</a></li>
+              <li><a @click="scrollToSection($event, 'about')" href="#about">About</a></li>
+              <li><a @click="scrollToSection($event, 'skills')" href="#skills">Skills</a></li>
+              <li><a @click="scrollToSection($event, 'projects')" href="#projects">Projects</a></li>
+              <li><a @click="scrollToSection($event, 'contact')" href="#contact">Contact</a></li>
             </ul>
         </nav>
     </div>

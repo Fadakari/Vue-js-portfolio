@@ -1,6 +1,6 @@
 <template>
   <section id="projects" class="projects-section" ref="projectsSectionRef">
-    <div class="section-content">
+    <div class="section-content internal-scroll">
       <div class="container">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
@@ -68,26 +68,24 @@ const projects = ref([
 </script>
 
 <style scoped>
+/*
 .projects-section {
   position: relative;
-  display: block !important;
-  /* ★ پس‌زمینه با افکت پارالکس */
-  background-image: url('/path/to/your/dark-background.jpg'); /* ★ آدرس عکس پس‌زمینه خود را قرار دهید */
+  background-image: url('/path/to/your/dark-background.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* ★ این خط جادوی پارالکس را ایجاد می‌کند */
+  background-attachment: fixed; 
 }
+*/
+
 .section-content {
   height: 100%;
   width: 100%;
   overflow-y: auto;
-  overscroll-behavior-y: contain;
-  /* ★ تغییر ۲: پدینگ‌ها به اینجا منتقل شدند */
   padding: 6rem 2rem 8rem 2rem;
   position: relative;
   z-index: 2;
 }
-
 /* مخفی کردن ظاهر اسکرول‌بار داخلی */
 .section-content::-webkit-scrollbar {
   display: none;

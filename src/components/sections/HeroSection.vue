@@ -43,7 +43,7 @@ const yourtitle = "Fullstack Developer(vue.js, python)";
 
 <template>
   <section class="hero-container" id="hero" ref="heroContainerRef">
-    <div class="section-content">
+    <div class="section-content internal-scroll">
       <h1 class="hero-name" ref="name">{{ yourname }}</h1>
       <p class="hero-title" ref="title">{{ yourtitle }}</p>
       <p class="hero-description" ref="description">

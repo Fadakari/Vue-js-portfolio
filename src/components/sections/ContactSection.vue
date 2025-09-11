@@ -1,6 +1,6 @@
 <template>
   <section id="contact" class="contact-section">
-    <div class="section-content">
+    <div class="section-content internal-scroll">
       <div class="container">
         <h2 class="section-title">Get in Touch</h2>
         <p class="section-subtitle">
@@ -61,6 +61,7 @@ const handleSubmit = (event: Event) => {
 </script>
 
 <style scoped>
+/*
 .contact-section {
   position: relative;
   display: flex !important;
@@ -70,16 +71,13 @@ const handleSubmit = (event: Event) => {
   padding-top: 7rem;
   padding-bottom: 7rem;
 }
+*/
 
 .section-content {
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
   overflow-y: auto;
-  /* ★★★ حذف شد: دیگر نیازی به این خط نیست ★★★ */
-  /* overscroll-behavior-y: contain; */
-
-  /* برای جلوگیری از تکرار، فقط از یک پدینگ استفاده کنید */
   padding: 8rem 2rem 4rem;
 }
 

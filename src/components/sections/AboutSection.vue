@@ -1,7 +1,7 @@
 
 <template>
   <section id="about" class="about-section">
-    <div class="section-content">
+    <div class="section-content internal-scroll">
       <div class="container">
         <h2 class="section-title">About Me</h2>
         <div class="content-wrapper">
@@ -28,12 +28,6 @@
 import profileImage from '@/assets/me.jpg';
 </script>
 <style scoped>
-.about-section {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 .section-content {
   width: 100%;
   height: 100vh;

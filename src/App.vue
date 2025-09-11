@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin'; // ★ GSAP ScrollToPlugin را وارد می‌کنیم
 import HeroSection from './components/sections/HeroSection.vue';
 import SkillsSection from './components/sections/SkillsSection.vue';
 import ProjectsSection from './components/sections/ProjectsSection.vue';
@@ -11,112 +9,139 @@ import AnimatedGradientBackground from './components/AnimatedGradientBackground.
 import ContactSection from './components/sections/ContactSection.vue';
 import AboutSection from './components/sections/AboutSection.vue';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); // ★ ScrollToPlugin را هم رجیster می‌کنیم
-
-// ★ --- شروع منطق جدید برای اسکرول دسکتاپ --- ★
-const mainScroller = ref<HTMLElement | null>(null);
-let sections: HTMLElement[] = [];
-let isScrolling = false; // برای جلوگیری از اجرای همزمان انیمیشن‌ها
+const sections = ref<HTMLElement[]>([]);
 let currentSectionIndex = 0;
+let isAnimating = false;
+const animationDuration = 1.2;
 
-const handleDesktopWheel = (event: WheelEvent) => {
-  // اگر انیمیشن در حال اجراست یا روی یک بخش با اسکرول داخلی هستیم، خارج شو
-  if (isScrolling) return;
-
-  // اگر موس روی بخش‌هایی است که خودشان اسکرول داخلی دارند، اجازه می‌دهیم اسکرول عادی کار کند
-  const targetElement = event.target as HTMLElement;
-  if (targetElement.closest('.skills-section .section-content') || targetElement.closest('.projects-section .section-content')) {
+const changeSection = (newIndex: number) => {
+  if (isAnimating || newIndex < 0 || newIndex >= sections.value.length || newIndex === currentSectionIndex) {
     return;
   }
-  
-  // برای جلوگیری از اسکرول عادی مرورگر
-  event.preventDefault();
+  isAnimating = true;
+  const currentSection = sections.value[currentSectionIndex];
+  const nextSection = sections.value[newIndex];
+  const currentElements = gsap.utils.toArray(currentSection.querySelectorAll('.section-content > *'));
+  const nextElements = gsap.utils.toArray(nextSection.querySelectorAll('.section-content > *'));
+  const direction = newIndex > currentSectionIndex ? 1 : -1;
 
-  const scrollDirection = event.deltaY > 0 ? 'down' : 'up';
-
-  if (scrollDirection === 'down' && currentSectionIndex < sections.length - 1) {
-    currentSectionIndex++;
-    scrollToSection(currentSectionIndex);
-  } else if (scrollDirection === 'up' && currentSectionIndex > 0) {
-    currentSectionIndex--;
-    scrollToSection(currentSectionIndex);
-  }
-};
-
-const scrollToSection = (index: number) => {
-  isScrolling = true; // ★ اسکرول را قفل می‌کنیم
-  gsap.to(mainScroller.value, {
-    duration: 1, // ★ می‌توانیم کمی سرعت انیمیشن را بیشتر کنیم برای حس بهتر
-    scrollTo: { y: sections[index], autoKill: false },
-    ease: 'power3.inOut',
+  gsap.set(nextSection, { autoAlpha: 1 });
+  gsap.from(nextElements, { y: direction * 60, autoAlpha: 0, stagger: 0.1, duration: animationDuration * 0.6, ease: 'power3.out' });
+  gsap.to(currentElements, {
+    y: -direction * 60, autoAlpha: 0, stagger: 0.05, duration: animationDuration * 0.5, ease: 'power3.in',
     onComplete: () => {
-      // ★★★ تغییر کلیدی: ما دیگر از setTimeout استفاده نمی‌کنیم.
-      // قفل اسکرول دقیقاً زمانی باز می‌شود که انیمیشن تمام شده باشد.
-      isScrolling = false;
+      gsap.set(currentSection, { autoAlpha: 0 });
+      gsap.set(currentElements, { y: 0, autoAlpha: 1 });
+      currentSectionIndex = newIndex;
+      setTimeout(() => { isAnimating = false; }, 300);
     }
   });
 };
 
-// تابع برای فعال/غیرفعال کردن منطق اسکرول بر اساس اندازه صفحه
-const setupDesktopScroll = () => {
-  if (window.innerWidth > 1024 && mainScroller.value) {
-    // در حالت دسکتاپ، scroll-snap را سخت‌گیرانه‌تر می‌کنیم
-    mainScroller.value.style.scrollSnapType = 'y mandatory';
-    // شنونده رویداد wheel را اضافه می‌کنیم
-    mainScroller.value.addEventListener('wheel', handleDesktopWheel, { passive: false });
-  } else if (mainScroller.value) {
-    // در موبایل، به حالت قبل برمی‌گردیم
-    mainScroller.value.style.scrollSnapType = 'y proximity';
-    // شنونده رویداد را حذف می‌کنیم
-    mainScroller.value.removeEventListener('wheel', handleDesktopWheel);
+const handleWheel = (event: WheelEvent) => {
+  if (isAnimating) {
+    event.preventDefault();
+    return;
+  }
+  const targetElement = event.target as HTMLElement;
+  const scrollableContent = targetElement.closest('.internal-scroll');
+  const scrollDirection = event.deltaY > 0 ? 'down' : 'up';
+
+  if (scrollableContent) {
+    const { scrollTop, scrollHeight, clientHeight } = scrollableContent;
+    const epsilon = 1.5;
+    if (scrollDirection === 'down' && scrollHeight - clientHeight - scrollTop > epsilon) return;
+    if (scrollDirection === 'up' && scrollTop > epsilon) return;
+  }
+  event.preventDefault();
+  if (scrollDirection === 'down') {
+    changeSection(currentSectionIndex + 1);
+  } else {
+    changeSection(currentSectionIndex - 1);
   }
 };
-// ★ --- پایان منطق جدید برای اسکرول دسکتاپ --- ★
 
+let touchStartY = 0;
+// ★★★ متغیر برای ذخیره عنصر لمس شده
+let touchTarget: HTMLElement | null = null; 
+
+const handleTouchStart = (event: TouchEvent) => {
+  touchStartY = event.touches[0].clientY;
+  // ★★★ ذخیره عنصری که لمس از آنجا شروع شده
+  touchTarget = event.touches[0].target as HTMLElement;
+};
+
+// ★★★ تابع handleTouchEnd با منطق جدید و هوشمند ★★★
+const handleTouchEnd = (event: TouchEvent) => {
+  if (isAnimating || !touchTarget) return;
+
+  const touchEndY = event.changedTouches[0].clientY;
+  const deltaY = touchEndY - touchStartY;
+
+  // فقط اگر کشیدن انگشت به اندازه کافی بلند بود، عمل کن
+  if (Math.abs(deltaY) > 50) {
+    const scrollableContent = touchTarget.closest('.internal-scroll');
+
+    // اگر در حال لمس یک محتوای قابل اسکرول داخلی هستیم
+    if (scrollableContent) {
+      const { scrollTop, scrollHeight, clientHeight } = scrollableContent;
+      // تلورانس را برای موبایل کمی بیشتر در نظر می‌گیریم
+      const epsilon = 5; 
+
+      // اگر انگشت به سمت بالا کشیده شده (رفتن به بخش بعدی)
+      // و هنوز به انتهای اسکرول نرسیده‌ایم، تابع را متوقف کن
+      if (deltaY < 0 && scrollHeight - clientHeight - scrollTop > epsilon) {
+        return;
+      }
+
+      // اگر انگشت به سمت پایین کشیده شده (رفتن به بخش قبلی)
+      // و هنوز در ابتدای اسکرول نیستیم، تابع را متوقف کن
+      if (deltaY > 0 && scrollTop > epsilon) {
+        return;
+      }
+    }
+
+    // اگر کد به اینجا رسید، یعنی باید سکشن را عوض کنیم
+    if (deltaY < 0) { // کشیدن به سمت بالا (رفتن به بخش بعدی)
+      changeSection(currentSectionIndex + 1);
+    } else { // کشیدن به سمت پایین (رفتن به بخش قبلی)
+      changeSection(currentSectionIndex - 1);
+    }
+  }
+  // ★★★ پاک کردن متغیر در انتها
+  touchTarget = null;
+};
+
+const handleNavigation = (event: Event) => {
+  const customEvent = event as CustomEvent;
+  const sectionId = customEvent.detail.sectionId;
+  const newIndex = sections.value.findIndex(sec => sec.id === sectionId);
+  if (newIndex !== -1) {
+    changeSection(newIndex);
+  }
+};
 
 onMounted(() => {
-  sections = gsap.utils.toArray<HTMLElement>('main > section');
+  sections.value = gsap.utils.toArray<HTMLElement>('main > section');
+  gsap.set(sections.value, { autoAlpha: 0 });
+  gsap.set(sections.value[0], { autoAlpha: 1 });
 
-  sections.forEach((section) => {
-    const content = section.querySelector('.section-content');
-    if (!content) return;
-
-    gsap.set(content, { opacity: 0, y: 50 });
-
-    ScrollTrigger.create({
-      scroller: 'main',
-      trigger: section,
-      start: 'top 20%',
-      end: 'bottom 80%', 
-      onEnter: () => gsap.to(content, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }),
-      onLeave: () => gsap.to(content, { opacity: 0, y: -50, duration: 0.8, ease: 'power3.in' }),
-      onEnterBack: () => gsap.to(content, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }),
-      onLeaveBack: () => gsap.to(content, { opacity: 0, y: 50, duration: 0.8, ease: 'power3.in' }),
-    });
-  });
-
-  const firstSectionContent = document.querySelector('main > section .section-content');
-  if (firstSectionContent) {
-    gsap.to(firstSectionContent, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-  }
-  
-  // ★ --- فعال‌سازی منطق اسکرول دسکتاپ --- ★
-  mainScroller.value = document.querySelector('main');
-  setupDesktopScroll();
-  window.addEventListener('resize', setupDesktopScroll); // برای واکنش به تغییر سایز پنجره
+  window.addEventListener('wheel', handleWheel, { passive: false });
+  window.addEventListener('touchstart', handleTouchStart, { passive: false });
+  window.addEventListener('touchend', handleTouchEnd, { passive: false });
+  window.addEventListener('navigateToSection', handleNavigation);
 });
 
 onUnmounted(() => {
-  // ★ --- حذف شنونده‌ها برای جلوگیری از نشت حافظه --- ★
-  window.removeEventListener('resize', setupDesktopScroll);
-  if (mainScroller.value) {
-      mainScroller.value.removeEventListener('wheel', handleDesktopWheel);
-  }
+  window.removeEventListener('wheel', handleWheel);
+  window.removeEventListener('touchstart', handleTouchStart);
+  window.removeEventListener('touchend', handleTouchEnd);
+  window.removeEventListener('navigateToSection', handleNavigation);
 });
-
 </script>
+
 <template>
-    <AnimatedGradientBackground />
+  <AnimatedGradientBackground />
   <Header />
 
   <main>
@@ -127,43 +152,32 @@ onUnmounted(() => {
     <ContactSection />
   </main>
 </template>
+
 <style>
-/* این استایل برای قرار گرفتن پس‌زمینه در زیر محتوا ضروری است */
-#tsparticles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* استایل‌های عمومی App.vue (بدون تغییر) */
+html, body {
+  overflow: hidden;
   height: 100%;
-  z-index: -1;
-  -ms-overflow-style: none; /* برای Internet Explorer و Edge */
-  scrollbar-width: none;
 }
-/* App.vue -> <style> */
 main {
   width: 100%;
   height: 100vh;
-  overflow-y: scroll;
-  /* ★★★ تغییر کلیدی: از mandatory به proximity ★★★ */
-  scroll-snap-type: y proximity; /* این باعث می‌شود اسنپ کمتر سخت‌گیر باشد */
+  position: relative;
+  overflow: hidden;
 }
-
-main::-webkit-scrollbar {
-  display: none; /* کاملاً مخفی کردن */
-}
-
-
-/* تمام سکشن‌های داخل main باید تمام صفحه باشند */
 main > section {
   width: 100%;
-  scroll-snap-align: start; /* ★ هر سکشن به بالای صفحه می‌چسبد */
-  display: flex; /* برای وسط‌چین کردن محتوای داخلی */
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
+  visibility: hidden; 
+  opacity: 0;
 }
-.section-content{
+.section-content {
   width: 100%;
 }
-
 </style>

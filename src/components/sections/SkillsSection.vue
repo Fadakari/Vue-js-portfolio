@@ -1,6 +1,6 @@
 <template>
   <section id="skills" class="skills-section">
-    <div class="section-content" ref="sectionContentRef">
+    <div class="section-content internal-scroll" ref="sectionContentRef">
       <div class="container">
         <div class="skills-content w-full pt-20">
           <h2 class="section-title">My Tech Stack</h2>
@@ -56,11 +56,7 @@ const skills = ref([
 
 
 <style scoped>
-.skills-section {
-  position: relative;
-  display: block !important;
-  height: 100vh;
-}
+
 
 /* ★★★ تغییر کلیدی برای اسکرول داخلی ★★★ */
 .section-content {
