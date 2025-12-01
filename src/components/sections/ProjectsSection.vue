@@ -108,9 +108,7 @@ const projects = ref([
 }
 
 .project-card {
-  background-color: rgba(30, 41, 59, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(30, 41, 59, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   overflow: hidden;
@@ -118,6 +116,7 @@ const projects = ref([
   flex-direction: column;
   text-align: left;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
 }
 
 .project-card:hover {
