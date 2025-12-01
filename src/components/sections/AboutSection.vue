@@ -9,14 +9,11 @@
             <img :src="profileImage" alt="Your Name" class="profile-image">
           </div>
           <div class="about-text-content">
-             <p class="about-me-text anim-stagger">
-              Hello! I'm a passionate Full-Stack Developer driven by a core belief: that the most powerful digital experiences are born from the intersection of modern aesthetics and intuitive design. My journey into programming was sparked by a fascination with transforming complex ideas into clean, user-centric web applications that people genuinely enjoy using.
+            <p class="about-me-text anim-stagger">
+              I am a Full-Stack Engineer with a relentless focus on performance and scalability. My expertise lies in crafting seamless digital experiences using <strong>Vue.js</strong> for reactive frontends and <strong>Python</strong> for powerful backend logic. I don't just write code; I engineer solutions that help businesses grow.
             </p>
             <p class="about-me-text anim-stagger">
-              My philosophy centers on a dual commitment to elegance and precision. I believe in crafting UI/UX that is not only visually striking but also exceptionally clear and accessible. This principle is matched by my dedication to technical excellence; I take a meticulous approach to development, striving to deliver robust, pixel-perfect, and reliable products through rigorous testing and a deep commitment to quality assurance.
-            </p>
-            <p class="about-me-text anim-stagger">
-              Specializing in the Vue.js ecosystem and Python, I architect seamless, full-featured applications. I thrive on complex problem-solving, often entering a state of deep focus or "flow," where I can fully immerse myself in a challenge to deliver elegant and efficient solutions. I see code not just as a set of instructions, but as a craft.
+              With a strong foundation in Linux server management and database optimization, I ensure that the applications I build are not only beautiful but also robust and secure. I treat every project as a partnership, aiming for pixel-perfect implementation and long-term reliability.
             </p>
           </div>
         </div>
