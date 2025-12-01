@@ -46,7 +46,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   position: relative;
-  filter: blur(200px);
+  filter: blur(100px);
 }
 
 .blob {
@@ -55,6 +55,8 @@ onMounted(() => {
   opacity: 0.7;
   top: 60%;
   left: 40%;
+  will-change: transform;
+  filter: blur(80px);
 }
 
 
