@@ -6,8 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 
 const yourname = "Erfan Hoseini Fadakar";
-const yourtitle = "Fullstack Developer(vue.js, python)";
-
+const yourtitle = "Senior Full-Stack Engineer | Python & Vue.js Expert";
+const descriptionText = "I build scalable, high-performance web applications tailored to streamline business processes. Bridging the gap between elegant UI and robust backend logic.";
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const yourtitle = "Fullstack Developer(vue.js, python)";
       <h1 class="hero-name anim-stagger" ref="name">{{ yourname }}</h1>
       <p class="hero-title anim-stagger" ref="title">{{ yourtitle }}</p>
       <p class="hero-description anim-stagger" ref="description">
-        A creative developer with a passion for building dynamic and engaging user interfaces.
+        {{ descriptionText }}
       </p>
     </div>
   </section>
