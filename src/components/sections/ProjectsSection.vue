@@ -44,6 +44,19 @@ const projects = ref([
     liveUrl: 'https://stockdivar.ir',
     githubUrl: 'https://github.com/Fadakari/stock_app',
   },
+  {
+    title: 'Biography site', 
+    description: `redefining Personal Branding with Nuxt 3 & GSAP 🚀
+                  Excited to unveil my latest project: A high-performance personal portfolio website designed for Behzad Heydari.
+                  In this project, I focused on bridging the gap between aesthetic design and technical performance.
+                  ✨ Key Tech Stack: 🔹 Nuxt 3: For server-side rendering (SSR) and superior SEO. 🔹 GSAP: Creating buttery-smooth, GPU-accelerated animations (no lag, even on mobile!). 🔹 Tailwind CSS: For a modern, responsive UI. 🔹 Schema.org: Full JSON-LD implementation for rich snippets and Knowledge Graph eligibility.
+                  ⚡ Performance Highlights: The site achieves a 100/100 Lighthouse score using @nuxt/image for WebP optimization and intelligent component lazy loading. The animated background is fully optimized to run on the GPU, ensuring zero impact on the main thread.
+  `,
+    image: projectStockImage,
+    tags: ['Vue Js', 'Tailwind CSS', 'TypeScript', 'Nuxt Js', 'Gsap'],
+    liveUrl: 'https://behzadheydari.ir/',
+    githubUrl: 'https://github.com/Fadakari/bio-site',
+  }
 
 ]);
 
