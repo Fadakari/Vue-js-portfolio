@@ -40,9 +40,9 @@ const skills = ref([
   { name: 'TypeScript', icon: typescriptIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
   { name: 'JavaScript', icon: javascriptIcon, discription: 'Advanced', style: 'border: 1px solid #00ca33' },
   { name: 'Python', icon: pythonIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Vite', icon: viteIcon, discription: 'Beginner', style: 'border: 1px solid #ff0800' },
+  { name: 'Vite', icon: viteIcon, discription: 'Moderately', style: 'border: 1px solid #ff0800' },
   { name: 'Flask', icon: flaskIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Tailwind', icon: tailwindIcon, discription: 'Beginner', style: 'border: 1px solid #ff0800' },
+  { name: 'Tailwind', icon: tailwindIcon, discription: 'Moderately', style: 'border: 1px solid #ff0800' },
   { name: 'Github', icon: githubIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
   { name: 'Mysql', icon: mysqlIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
 ]);
