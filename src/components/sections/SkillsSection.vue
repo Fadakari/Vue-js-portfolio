@@ -28,7 +28,7 @@ import typescriptIcon from '@/assets/icons/typescript.svg';
 import javascriptIcon from '@/assets/icons/javascript.svg';
 import pythonIcon from '@/assets/icons/python.svg';
 import viteIcon from '@/assets/icons/vitejs.svg';
-import flaskIcon from '@/assets/icons/flask_dark.svg';
+import flaskIcon from '@/assets/icons/Flask_dark.svg';
 import tailwindIcon from '@/assets/icons/tailwindcss.svg';
 import githubIcon from '@/assets/icons/GitHub_dark.svg';
 import mysqlIcon from '@/assets/icons/mysql.svg';
