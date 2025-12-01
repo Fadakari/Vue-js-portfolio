@@ -43,8 +43,8 @@ const skills = ref([
   { name: 'Vite', icon: viteIcon, discription: 'Moderately', style: 'border: 1px solid #ff0800' },
   { name: 'Flask', icon: flaskIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
   { name: 'Tailwind', icon: tailwindIcon, discription: 'Moderately', style: 'border: 1px solid #ff0800' },
-  { name: 'Github', icon: githubIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
-  { name: 'Mysql', icon: mysqlIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'DevOps & Git', icon: githubIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
+  { name: 'Database Architecture', icon: mysqlIcon, discription: 'Moderately', style: 'border: 1px solid #00aeff' },
 ]);
 
 
