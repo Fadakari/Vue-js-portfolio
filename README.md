@@ -1,6 +1,5 @@
 # Erfan Fadakar - Full-Stack Developer Portfolio
 
-![Portfolio Preview](src/assets/image.png)
 
 > **Crafting high-performance web experiences with Vue.js & Python.**
 
@@ -25,7 +24,7 @@ This portfolio is built with a focus on performance and modern best practices:
 I am a Full-Stack Developer based in Iran, specializing in the **Vue.js ecosystem** and **Python**. I combine technical expertise with a keen eye for design to build applications that are scalable, maintainable, and user-friendly.
 
 * **Frontend:** Vue.js, Nuxt.js, TypeScript, Tailwind, GSAP
-* **Backend:** Python, Flask, Django
+* **Backend:** Python, Flask, jinja2
 * **Tools:** Git, Linux Server Management, MySQL
 
 ## 🔗 Connect with Me
