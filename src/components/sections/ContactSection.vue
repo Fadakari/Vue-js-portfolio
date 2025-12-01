@@ -112,8 +112,7 @@ const handleSubmit = (event: Event) => {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 3rem;
-  background-color: rgba(30, 41, 59, 0.4);
-  backdrop-filter: blur(12px);
+  background-color: rgba(30, 41, 59, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 3rem;
