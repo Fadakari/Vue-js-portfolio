@@ -32,6 +32,7 @@ import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import projectStockImage from '@/assets/image.png';
+import projectBioImage from '@/assets/Screenshot 2025-12-01 125428.jpg'
 
 
 
@@ -52,7 +53,7 @@ const projects = ref([
                   ✨ Key Tech Stack: 🔹 Nuxt 3: For server-side rendering (SSR) and superior SEO. 🔹 GSAP: Creating buttery-smooth, GPU-accelerated animations (no lag, even on mobile!). 🔹 Tailwind CSS: For a modern, responsive UI. 🔹 Schema.org: Full JSON-LD implementation for rich snippets and Knowledge Graph eligibility.
                   ⚡ Performance Highlights: The site achieves a 100/100 Lighthouse score using @nuxt/image for WebP optimization and intelligent component lazy loading. The animated background is fully optimized to run on the GPU, ensuring zero impact on the main thread.
   `,
-    image: projectStockImage,
+    image: projectBioImage,
     tags: ['Vue Js', 'Tailwind CSS', 'TypeScript', 'Nuxt Js', 'Gsap'],
     liveUrl: 'https://behzadheydari.ir/',
     githubUrl: 'https://github.com/Fadakari/bio-site',
