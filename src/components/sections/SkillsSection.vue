@@ -60,7 +60,7 @@ const skills = ref([
   height: 100vh;
   box-sizing: border-box;
   overflow-y: auto;
-  padding: 8rem 2rem 4rem;
+  padding: 8rem 2rem 8rem;
 }
 
 .section-content::-webkit-scrollbar {
