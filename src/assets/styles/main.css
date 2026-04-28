@@ -1,0 +1,23 @@
+:root {
+  --bg-color: #000000;
+  --text-color: #e2e8f0;
+  --primary-color: #38bdf8;
+  --card-bg-color: #1e293b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Vazirmatn', sans-serif;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
+}
