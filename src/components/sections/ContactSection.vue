@@ -73,9 +73,9 @@ const handleSubmit = (event: Event) => {
 
 .section-content {
   width: 100%;
-  height: 100vh;
+  
   box-sizing: border-box;
-  overflow-y: auto;
+  
   padding: 8rem 2rem 8rem;
 }
 

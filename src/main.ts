@@ -9,11 +9,10 @@ import rippleDirective from '../v-ripple';
 const app = createApp(App)
 
 app.directive('ripple', rippleDirective);
-
 app.use(createPinia())
-
 app.mount('#app')
 
+// فقط preloader را حذف می‌کند (اگر وجود داشته باشد)
 const preloader = document.getElementById('app-preloader')
 if (preloader) {
   preloader.classList.add('hidden')

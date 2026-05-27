@@ -9,48 +9,32 @@ const mainScroller = ref<HTMLElement | null>(null);
 const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 
-const handleScroll = () => {
-  if (mainScroller.value) {
-    isScrolled.value = mainScroller.value.scrollTop > 50;
-  }
-};
+const handleScroll = () => {  isScrolled.value = window.scrollY > 50;};
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
 
 onMounted(() => {
-  mainScroller.value = document.querySelector('main');
-  if (mainScroller.value) {
-    mainScroller.value.addEventListener('scroll', handleScroll);
-  }
+  window.addEventListener('scroll', handleScroll);
 
   gsap.from('.main-header', { y: -100, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.5 });
   gsap.from('.nav-links li, .brand-name', { opacity: 0, y: -20, stagger: 0.1, duration: 0.8, ease: 'power3.out', delay: 0.8 });
 });
 
 onUnmounted(() => {
-  if (mainScroller.value) {
-    mainScroller.value.removeEventListener('scroll', handleScroll);
-  }
+  window.removeEventListener('scroll', handleScroll);
 });
 
-const scrollToSection = (event: MouseEvent, id: string) => {
-  event.preventDefault();
-
-  const customEvent = new CustomEvent('navigateToSection', { detail: { sectionId: id } });
-  window.dispatchEvent(customEvent);
-
+const scrollToSectionHandler = (id: string) => {
+  props.scrollToSection(id);
   if (isMobileMenuOpen.value) {
     isMobileMenuOpen.value = false;
   }
 };
-const props = defineProps({
-  currentSectionIndex: {
-    type: Number,
-    required: true,
-  }
-});
+const props = defineProps<{
+  scrollToSection: (id: string) => void;
+}>();
 
 const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
 
@@ -65,16 +49,16 @@ const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
     }">
     <div class="header-content">
       <div class="header-left">
-        <a href="#" @click.prevent="scrollToSection($event, 'hero')" class="brand-name">FADAKAR</a>
+        <a href="#" @click.prevent="scrollToSectionHandler($event, 'hero')" class="brand-name">FADAKAR</a>
       </div>
       
       <nav class="header-right desktop-nav">
         <ul class="nav-links">
-          <li><a @click="scrollToSection($event, 'hero')" href="#hero">Home</a></li>
-          <li><a @click="scrollToSection($event, 'about')" href="#about">About</a></li>
-          <li><a @click="scrollToSection($event, 'skills')" href="#skills">Skills</a></li>
-          <li><a @click="scrollToSection($event, 'projects')" href="#projects">Projects</a></li>
-          <li><a @click="scrollToSection($event, 'contact')" href="#contact">Contact</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">Home</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">About</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">Skills</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">Projects</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">Contact</a></li>
         </ul>
       </nav>
 
@@ -88,11 +72,11 @@ const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
     <div class="mobile-menu-panel">
         <nav>
             <ul class="mobile-nav-links">
-              <li><a @click="scrollToSection($event, 'hero')" href="#hero">Home</a></li>
-              <li><a @click="scrollToSection($event, 'about')" href="#about">About</a></li>
-              <li><a @click="scrollToSection($event, 'skills')" href="#skills">Skills</a></li>
-              <li><a @click="scrollToSection($event, 'projects')" href="#projects">Projects</a></li>
-              <li><a @click="scrollToSection($event, 'contact')" href="#contact">Contact</a></li>
+              <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">Home</a></li>
+              <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">About</a></li>
+              <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">Skills</a></li>
+              <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">Projects</a></li>
+              <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">Contact</a></li>
             </ul>
         </nav>
     </div>

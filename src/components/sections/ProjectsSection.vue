@@ -55,8 +55,8 @@ const projects = ref([
     githubUrl: 'https://github.com/Fadakari/bio-site',
   },
   {
-    title: 'Digital menu', 
-    description: `This website is a digital menu for a music school, connected to the database without the need for a backend, using Nuxt and Nitro's 'motor' technology. This allows the menu to run quickly and efficiently on hosting platforms and freee database services such as Vercel and Supabase.`,
+    title: 'Digital menu',
+    description: `This website is a digital menu for a music school, connected to the database without the need for a backend, using Nuxt and Nitro's 'motor' technology.`,
     image: digitalMenu,
     tags: ['Vue Js', 'Tailwind CSS', 'TypeScript', 'Nuxt Js', 'Gsap', 'Nuxt nitro motor', 'Supabase database', 'Github'],
     liveUrl: 'https://nuxt-nitro-motor-flrrimsiz-projects.vercel.app',
@@ -85,9 +85,8 @@ const projects = ref([
 */
 
 .section-content {
-  height: 100%;
   width: 100%;
-  overflow-y: auto;
+  
   padding: 6rem 2rem 8rem 2rem;
   position: relative;
   z-index: 2;
