@@ -13,70 +13,67 @@ import AnimatedGradientBackground from './components/AnimatedGradientBackground.
 gsap.registerPlugin(ScrollTrigger);
 
 onMounted(() => {
-  const sections = document.querySelectorAll('main > section');
+  const elements = document.querySelectorAll('.anim-stagger');
   
-  sections.forEach((section) => {
-    const elements = section.querySelectorAll('.anim-stagger');
-    if (elements.length === 0) return;
+  // وضعیت اولیه زیر کاپوت: همه عناصر ابتدا مخفی و کمی پایین‌تر قرار می‌گیرند
+  gsap.set(elements, { 
+    opacity: 0, 
+    y: 40, 
+    willChange: 'transform, opacity' 
+  });
 
-    // حالت اولیه: همه المان‌ها مخفی و پایین‌تر (برای ورود عادی)
-    gsap.set(elements, { 
-      opacity: 0, 
-      y: 40, 
-      willChange: 'transform, opacity' 
-    });
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top 80%',     // وقتی لبه بالایی سکشن به 80% ارتفاع viewport رسید
-      end: 'bottom 20%',    // برای تعیین محدوده خروج
-      // ========== ورود عادی (اسکرول به پایین) ==========
-      onEnter: () => {
-        gsap.to(elements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-          overwrite: true,
-        });
-      },
-      // ========== خروج به سمت بالا (اسکرول به پایین و سکشن دارد از بالای صفحه خارج می‌شود) ==========
-      onLeave: () => {
-        gsap.to(elements, {
-          opacity: 0,
-          y: 40,
-          duration: 0.5,
-          stagger: 0.05,
-          ease: 'power3.in',
-          overwrite: true,
-        });
-      },
-      // ========== ورود معکوس (اسکرول به بالا) ==========
-      onEnterBack: () => {
-        // ابتدا آن‌ها را از بالا بیاوریم
-        gsap.set(elements, { y: -40, opacity: 0 });
-        gsap.to(elements, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'back.out(0.6)',  // افکت فنری خوشگل برای بازگشت
-          overwrite: true,
-        });
-      },
-      // ========== خروج به سمت پایین (اسکرول به بالا و سکشن دارد از پایین صفحه خارج می‌شود) ==========
-      onLeaveBack: () => {
-        gsap.to(elements, {
-          opacity: 0,
-          y: -40,
-          duration: 0.5,
-          stagger: 0.05,
-          ease: 'power3.in',
-          overwrite: true,
-        });
-      },
-    });
+  // استفاده از ساختار قدرتمند batch برای مدیریت اختصاصی تک‌تک عناصر
+  ScrollTrigger.batch(elements, {
+    start: 'top 75%', // ورود به منطقه وضوح (عنصر وارد ۳/۴ پایینی صفحه می‌شود)
+    end: 'top 25%',   // خروج از منطقه وضوح (عنصر وارد ۱/۴ بالایی صفحه می‌شود)
+    
+    // ۱. اسکرول به پایین: ورود عناصر به بخش میانی صفحه (ظاهر شدن روان)
+    onEnter: (batch) => {
+      gsap.to(batch, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    },
+    
+    // ۲. اسکرول به پایین: خروج عناصر از بالای صفحه (کاربر دقیقاً محو شدن آن را در ۱/۴ بالایی می‌بیند)
+    onLeave: (batch) => {
+      gsap.to(batch, {
+        opacity: 0,
+        y: -40,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.in',
+        overwrite: 'auto'
+      });
+    },
+    
+    // ۳. اسکرول به بالا: بازگشت عناصر از بالای صفحه به بخش میانی
+    onEnterBack: (batch) => {
+      gsap.to(batch, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: { each: 0.15, from: 'end' }, // معکوس کردن جهت آبشار برای طبیعی بودن حرکت از بالا
+        ease: 'power2.out',
+        overwrite: 'auto'
+      });
+    },
+    
+    // ۴. اسکرول به بالا: خروج عناصر از پایین صفحه (محو شدن روان در ۱/۴ پایینی)
+    onLeaveBack: (batch) => {
+      gsap.to(batch, {
+        opacity: 0,
+        y: 40,
+        duration: 0.5,
+        stagger: { each: 0.1, from: 'end' },
+        ease: 'power2.in',
+        overwrite: 'auto'
+      });
+    }
   });
 
   onUnmounted(() => {

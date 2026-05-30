@@ -8,8 +8,8 @@
             I specialize in creating modern, responsive, and high-performance web applications using cutting-edge technologies.
           </p>
         </div>
-        <div class="skills-grid anim-stagger">
-          <div v-for="skill in skills" :key="skill.name" class="skill-card">
+        <div class="skills-grid">
+          <div v-for="skill in skills" :key="skill.name" class="skill-card anim-stagger">
             <img :src="skill.icon" :alt="skill.name" class="skill-icon" />
             <span class="skill-name">{{ skill.name }}</span>
             <p class="skill-discription" :style="skill.style">{{ skill.discription }}</p>
