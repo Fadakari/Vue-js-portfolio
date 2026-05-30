@@ -15,65 +15,40 @@ gsap.registerPlugin(ScrollTrigger);
 onMounted(() => {
   const elements = document.querySelectorAll('.anim-stagger');
   
-  // وضعیت اولیه زیر کاپوت: همه عناصر ابتدا مخفی و کمی پایین‌تر قرار می‌گیرند
-  gsap.set(elements, { 
-    opacity: 0, 
-    y: 40, 
-    willChange: 'transform, opacity' 
-  });
+  elements.forEach((el) => {
+    // ایجاد یک تایم‌لاین اختصاصی متصل به اسکرول برای تک‌تک عناصر
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: "top 95%",   // شروع انیمیشن به محض ورود لبه‌ی بالای عنصر از پایین ویوپورت
+        end: "bottom 5%",   // پایان انیمیشن وقتی لبه‌ی پایین عنصر از بالای ویوپورت خارج می‌شود
+        scrub: 0.8,         // اتصال مستقیم و بسیار نرم به اسکرول (عدد 0.8 یک لختی و روانی جذاب ایجاد می‌کند)
+      }
+    });
 
-  // استفاده از ساختار قدرتمند batch برای مدیریت اختصاصی تک‌تک عناصر
-  ScrollTrigger.batch(elements, {
-    start: 'top 75%', // ورود به منطقه وضوح (عنصر وارد ۳/۴ پایینی صفحه می‌شود)
-    end: 'top 25%',   // خروج از منطقه وضوح (عنصر وارد ۱/۴ بالایی صفحه می‌شود)
+    // گام اول: ورود از پایین صفحه (کم‌کم ظاهر و بزرگ می‌شود و بالا می‌آید)
+    tl.fromTo(el, 
+      { opacity: 0, scale: 0.85, y: 40 },
+      { opacity: 1, scale: 1, y: 0, duration: 1, ease: "none" }
+    )
     
-    // ۱. اسکرول به پایین: ورود عناصر به بخش میانی صفحه (ظاهر شدن روان)
-    onEnter: (batch) => {
-      gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: 'power2.out',
-        overwrite: 'auto'
-      });
-    },
+    // گام دوم: حضور در محدوده طلایی وسط صفحه (تمرکز تصویری و بزرگ‌نمایی ملایم)
+    .to(el, { 
+      opacity: 1, 
+      scale: 1.03,        // ایجاد افکت بزرگ شدن و زوم ملایم در مرکز صفحه
+      y: -10, 
+      duration: 1.5, 
+      ease: "none" 
+    })
     
-    // ۲. اسکرول به پایین: خروج عناصر از بالای صفحه (کاربر دقیقاً محو شدن آن را در ۱/۴ بالایی می‌بیند)
-    onLeave: (batch) => {
-      gsap.to(batch, {
-        opacity: 0,
-        y: -40,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.in',
-        overwrite: 'auto'
-      });
-    },
-    
-    // ۳. اسکرول به بالا: بازگشت عناصر از بالای صفحه به بخش میانی
-    onEnterBack: (batch) => {
-      gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: { each: 0.15, from: 'end' }, // معکوس کردن جهت آبشار برای طبیعی بودن حرکت از بالا
-        ease: 'power2.out',
-        overwrite: 'auto'
-      });
-    },
-    
-    // ۴. اسکرول به بالا: خروج عناصر از پایین صفحه (محو شدن روان در ۱/۴ پایینی)
-    onLeaveBack: (batch) => {
-      gsap.to(batch, {
-        opacity: 0,
-        y: 40,
-        duration: 0.5,
-        stagger: { each: 0.1, from: 'end' },
-        ease: 'power2.in',
-        overwrite: 'auto'
-      });
-    }
+    // گام سوم: خروج از بالای صفحه (کم‌کم کوچک و محو می‌شود و به سمت بالا می‌رود)
+    .to(el, { 
+      opacity: 0, 
+      scale: 0.85, 
+      y: -50, 
+      duration: 1, 
+      ease: "none" 
+    });
   });
 
   onUnmounted(() => {
