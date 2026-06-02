@@ -1,36 +1,34 @@
 <template>
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section" :class="{ 'rtl-mode': locale === 'fa' }">
     <div class="section-content internal-scroll">
       <div class="container">
-        <h2 class="section-title anim-stagger">Get in Touch</h2>
-        <p class="section-subtitle anim-stagger">
-          I'm always open to discussing new projects or partnership opportunities. Feel free to send me a message.
-        </p>
+        <h2 class="section-title anim-stagger">{{ $t('contact.title') }}</h2>
+        <p class="section-subtitle anim-stagger">{{ $t('contact.subtitle') }}</p>
         
         <div class="contact-wrapper anim-stagger">
           <form class="contact-form" @submit.prevent="handleSubmit">
             <div class="form-group">
-              <input type="text" id="name" name="name" required placeholder="Your Name">
-              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" required :placeholder="$t('contact.name_placeholder')">
+              <label for="name" class="labels">{{ $t('contact.name_placeholder') }}</label>
             </div>
             <div class="form-group">
-              <input type="email" id="email" name="email" required placeholder="Your Email">
-              <label for="email">Your Email</label>
+              <input type="email" id="email" name="email" required :placeholder="$t('contact.email_placeholder')">
+              <label for="email" class="labels">{{ $t('contact.email_placeholder') }}</label>
             </div>
             <div class="form-group">
-              <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
-              <label for="message">Your Message</label>
+              <textarea id="message" name="message" rows="5" required :placeholder="$t('contact.message_placeholder')"></textarea>
+              <label for="message" class="labels">{{ $t('contact.message_placeholder') }}</label>
             </div>
-            <button type="submit" class="submit-button">Send Message</button>
+            <button type="submit" class="submit-button">{{ $t('contact.send_btn') }}</button>
           </form>
 
           <div class="contact-info">
             <div class="info-item">
-              <h3 class="info-title">Email Me</h3>
+              <h3 class="info-title">{{ $t('contact.email_me') }}</h3>
               <a href="mailto:hoseni.erfan85@gmail.com" class="info-link">hoseni.erfan85@gmail.com</a>
             </div>
             <div class="info-item">
-              <h3 class="info-title">Let's Connect</h3>
+              <h3 class="info-title">{{ $t('contact.connect') }}</h3>
               <div class="social-links">
                 <a href="https://www.linkedin.com/in/erfan-fadakar-207a03320" target="_blank" class="social-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.25 6.5 1.75 1.75 0 016.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.62 1.62 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.1 1.16 3.1 3.99z"></path></svg>
@@ -41,8 +39,8 @@
               </div>
             </div>
             <div class="info-item">
-              <h3 class="info-title">Phone Number</h3>
-              <a href="mailto:your-email@example.com" class="info-link">+98 991 068 9541</a>
+              <h3 class="info-title">{{ $t('contact.phone') }}</h3>
+              <a href="tel:+989910689541" class="info-link">+98 991 068 9541</a>
             </div>
           </div>
         </div>
@@ -52,6 +50,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+// دریافت زبان فعلی سایت
+const { locale } = useI18n();
+
 const handleSubmit = (event: Event) => {
   alert('Thank you for your message! I will get back to you soon.');
   (event.target as HTMLFormElement).reset();
@@ -237,5 +241,60 @@ const handleSubmit = (event: Event) => {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 2rem;
   }
+}
+
+/* ========================================= */
+/* تنظیمات پیشرفته برای حالت راست‌چین (فارسی) */
+/* ========================================= */
+
+.rtl-mode .contact-form {
+  text-align: right;
+}
+
+/* جابجایی خط جداکننده اطلاعات تماس */
+@media (min-width: 992px) {
+  .rtl-mode .contact-info {
+    padding-left: 0;
+    border-left: none;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* تراز کردن متون اطلاعات تماس */
+.rtl-mode .contact-info {
+  text-align: right;
+}
+
+.rtl-mode .social-links {
+  justify-content: flex-start;
+}
+
+/* راست‌چین کردن متون تایپ شده توسط کاربر */
+.rtl-mode .form-group input,
+.rtl-mode .form-group textarea {
+  text-align: right;
+}
+
+/* جابجایی انیمیشن لیبل‌ها (Labels) */
+.rtl-mode .form-group .labels {
+  left: auto;
+  right: 0rem;
+}
+
+.rtl-mode .form-group input:focus + .labels,
+.rtl-mode .form-group input:not(:placeholder-shown) + .labels,
+.rtl-mode .form-group textarea:focus + .labels,
+.rtl-mode .form-group textarea:not(:placeholder-shown) + .labels {
+  left: auto;
+  right: 0rem;
+  top: -1rem;
+  font-size: 0.8rem;
+  color: #7dd3fc;
+}
+
+/* در ساختار Flexbox وقتی جهت RTL می‌شود، flex-start المان را سمت راست نگه می‌دارد */
+.rtl-mode .submit-button {
+  align-self: flex-start;
 }
 </style>

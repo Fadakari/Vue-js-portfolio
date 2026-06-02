@@ -3,10 +3,8 @@
     <div class="section-content internal-scroll" ref="sectionContentRef">
       <div class="container">
         <div class="skills-content w-full pt-20">
-          <h2 class="section-title anim-stagger">My Tech Stack</h2>
-          <p class="section-description anim-stagger">
-            I specialize in creating modern, responsive, and high-performance web applications using cutting-edge technologies.
-          </p>
+          <h2 class="section-title anim-stagger">{{ $t('skills.title') }}</h2>
+          <p class="section-description anim-stagger">{{ $t('skills.description') }}</p>
         </div>
         <div class="skills-grid">
           <div v-for="skill in skills" :key="skill.name" class="skill-card anim-stagger">

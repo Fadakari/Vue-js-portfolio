@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap');
+
 :root {
   --bg-color: #000000;
   --text-color: #e2e8f0;
@@ -20,4 +22,100 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+
+
+@media print {
+  /* ۱. اجبار مرورگر به حفظ رنگ‌ها و پس‌زمینه مشکی وب‌سایت */
+  html, body {
+    background-color: #000000 !important;
+    color: #e2e8f0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* ۲. قرار گرفتن هر سکشن در یک صفحه مجزای PDF */
+  main > section {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    page-break-before: always !important; /* هر سکشن در یک صفحه جدید شروع می‌شود */
+    break-before: page !important;
+    padding: 2rem 0 !important;
+    margin: 0 !important;
+    overflow: visible !important; /* جلوگیری از قیچی شدن محتوا */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: #000000 !important;
+  }
+
+  /* سکشن اول نیاز به صفحه جدید قبل از خودش ندارد */
+  main > section:first-of-type {
+    page-break-before: auto !important;
+    break-before: auto !important;
+  }
+
+  /* ۳. حل مشکل مخفی بودن عکس‌ها و کارت‌های پروژه */
+  *, .anim-stagger, .project-card, .card-image-container, .card-image, .skill-card {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* نمایش درست تصاویر پروژه */
+  .card-bg-image {
+    position: static !important;
+    display: block !important;
+    height: 200px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  .card-gradient-overlay, .view-details-btn {
+    display: none !important; /* مخفی کردن گرادیانت و دکمه در پی‌دی‌اف */
+  }
+  
+  .card-content-overlay {
+    position: static !important;
+    display: block !important;
+    padding: 1rem 0 !important;
+  }
+
+  /* ۴. مخفی کردن المان‌های ناوبری و متحرک لایه‌ی پشت */
+  .main-header,
+  .mobile-menu-panel,
+  .gradient-bg,
+  .contact-scroll-indicator,
+  .pdf-btn,
+  .image-overlay {
+    display: none !important;
+  }
+
+  /* ۵. تنظیمات رنگ فونت‌ها روی پس‌زمینه مشکی پورتفولیو */
+  h1, h2, h3, p, span, div, a {
+    color: #e2e8f0 !important;
+  }
+
+  .hero-name, .section-title {
+    color: var(--primary-color) !important;
+  }
+  
+  .tag {
+    background-color: rgba(56, 189, 248, 0.15) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.3) !important;
+  }
+
+  #app-preloader{
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    z-index: -1 !important;
+  }
 }

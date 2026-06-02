@@ -1,0 +1,51 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "download_cv": "Download CV"
+  },
+  "hero": {
+    "name": "Erfan Hoseini Fadakar",
+    "title": "Full-Stack Software Engineer | Vue.js & Python Expert",
+    "description": "I build scalable, high-performance web applications tailored to streamline business processes. Bridging the gap between elegant UI and robust backend logic.",
+    "connect": "Let's Connect"
+  },
+  "about": {
+    "title": "About Me",
+    "p1": "I am a Frontend-focused Software Engineer specialized in architecture and delivery of end-to-end applications. My core expertise revolves around crafting modern, pixel-perfect, and highly interactive user interfaces using Vue.js, Nuxt.js, and TypeScript.",
+    "p2": "What sets me apart is my solid command over backend technologies like Python (Flask) and database management. This dual perspective allows me to build complete, production-ready systems independently.",
+    "p3": "While my current technical expertise is deeply rooted in software engineering, my long-term vision is to leverage these creative problem-solving skills to transition into directing and film production, ultimately merging technology with powerful visual storytelling."
+  },
+  "skills": {
+    "title": "My Tech Stack",
+    "description": "I specialize in creating modern, responsive, and high-performance applications using cutting-edge technologies."
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "view_details": "View Details",
+    "live_demo": "Live Demo",
+    "source_code": "Source Code",
+    "stock_title": "Stock Management Platform",
+    "stock_desc": "Architected and developed a comprehensive B2B marketplace for trading industrial machinery entirely from scratch as the sole creator. Designed a responsive client-side interface using Vue.js while implementing robust RESTful APIs with Python and Flask.",
+    "bio_title": "Personal Branding Platform",
+    "bio_desc": "Designed and developed a highly interactive, performance-driven personal portfolio. Built from the ground up using Nuxt 3 to leverage SSR capabilities, combined with GSAP for complex, scroll-triggered animations.",
+    "menu_title": "Serverless Digital Menu",
+    "menu_desc": "Engineered an ultra-fast, serverless digital menu system tailored for a music academy utilizing the Nuxt Nitro engine and Supabase.",
+    "yazd_title": "Yazd Mobile Storefront",
+    "yazd_desc": "Revamped the frontend architecture of an eCommerce storefront focusing on SEO and performance optimization using React and Next.js."
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "I'm always open to discussing new projects or partnership opportunities. Feel free to send me a message.",
+    "name_placeholder": "Your Name",
+    "email_placeholder": "Your Email",
+    "message_placeholder": "Your Message",
+    "send_btn": "Send Message",
+    "email_me": "Email Me",
+    "connect": "Let's Connect",
+    "phone": "Phone Number"
+  }
+}

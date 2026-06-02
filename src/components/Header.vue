@@ -1,7 +1,25 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed, watchEffect } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { useI18n } from 'vue-i18n';
+
+const { locale } = useI18n();
+const isLangMenuOpen = ref(false);
+
+const changeLanguage = (lang: string) => {
+  locale.value = lang;
+  localStorage.setItem('user-locale', lang);
+  isLangMenuOpen.value = false;
+  
+  // تغییر هوشمند جهت سایت (RTL برای فارسی)
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+};
+
+// اعمال تنظیمات جهت متن در همان لحظه اول لود سایت
+watchEffect(() => {
+  document.documentElement.dir = locale.value === 'fa' ? 'rtl' : 'ltr';
+});
 
 gsap.registerPlugin(ScrollToPlugin);
 
@@ -38,6 +56,12 @@ const props = defineProps<{
 
 const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
 
+
+
+
+const generatePDF = () => {
+  window.print();
+};
 </script>
 
 <template>
@@ -54,13 +78,33 @@ const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
       
       <nav class="header-right desktop-nav">
         <ul class="nav-links">
-          <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">Home</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">About</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">Skills</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">Projects</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">Contact</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">{{ $t('nav.home') }}</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">{{ $t('nav.about') }}</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">{{ $t('nav.skills') }}</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">{{ $t('nav.projects') }}</a></li>
+          <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">{{ $t('nav.contact') }}</a></li>
         </ul>
       </nav>
+
+      <div class="lang-switcher-container relative">
+        <button @click="isLangMenuOpen = !isLangMenuOpen" class="lang-btn" title="Change Language">
+          <span class="uppercase text-sm font-semibold">{{ locale }}</span>
+        </button>
+
+        <Transition name="fade">
+          <div v-if="isLangMenuOpen" class="lang-dropdown">
+            <button @click="changeLanguage('en')" :class="{'active-lang': locale === 'en'}">English</button>
+            <button @click="changeLanguage('fa')" :class="{'active-lang': locale === 'fa'}">فارسی</button>
+            <button @click="changeLanguage('ru')" :class="{'active-lang': locale === 'ru'}">Русский</button>
+          </div>
+        </Transition>
+      </div>
+
+      <button @click="generatePDF" class="pdf-btn" title="Download CV as PDF">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </button>
 
       <button class="hamburger-button" @click="toggleMobileMenu" aria-label="Toggle menu">
         <span class="line line1"></span>
@@ -68,6 +112,7 @@ const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
         <span class="line line3"></span>
       </button>
     </div>
+
 
     <div class="mobile-menu-panel">
         <nav>
@@ -247,4 +292,103 @@ const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
     display: block;
   }
 }
+
+
+
+
+
+/* استایل‌های مربوط به دکمه PDF */
+.pdf-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.pdf-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-1px);
+}
+
+.pdf-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+
+
+/* استایل دکمه و دراپ‌داون زبان */
+.lang-switcher-container {
+  position: relative;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 50px;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: 120%;
+  right: 0; /* در نسخه فارسی سمت چپ باز می‌شود به دلیل RTL */
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 100px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.lang-dropdown button {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* تغییر تراز متن برای زبان فارسی در دراپ‌داون */
+html[dir="rtl"] .lang-dropdown button {
+  text-align: right;
+}
+
+.lang-dropdown button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.lang-dropdown button.active-lang {
+  color: #38bdf8;
+  font-weight: 600;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.fade-enter-active, .fade-leave-active { transition: opacity 0.2s, transform 0.2s; }
+.fade-enter-from, .fade-leave-to { opacity: 0; transform: translateY(-5px); }
 </style>
