@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fadakar-dev.ir/sitemap.xml
