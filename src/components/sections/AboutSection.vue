@@ -19,7 +19,7 @@
   </section>
 </template>
 <script setup lang="ts">
-import profileImage from '@/assets/IMG_20260316_115902_768.jpg';
+import profileImage from '@/assets/IMG_20260316_115902_768.webp';
 </script>
 <style scoped>
 .section-content {

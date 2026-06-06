@@ -80,12 +80,12 @@
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import projectStockImage from '@/assets/image.png';
-import projectBioImage from '@/assets/Screenshot 2025-12-01 125428.jpg';
-import digitalMenu from '@/assets/-2147483648_-210034.jpg';
-import yazdMobile from '@/assets/-2147483648_-210038.jpg';
-import pwaApp from '@/assets/pwaApp.png';
-import steelsara from '@/assets/steelsaraprg.png';
+import projectStockImage from '@/assets/image.webp';
+import projectBioImage from '@/assets/Screenshot 2025-12-01 125428.webp';
+import digitalMenu from '@/assets/-2147483648_-210034.webp';
+import yazdMobile from '@/assets/-2147483648_-210038.webp';
+import pwaApp from '@/assets/pwaApp.webp';
+import steelsara from '@/assets/steelsaraprg.webp';
 
 interface Project {
   title: string;
