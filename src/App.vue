@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, watch, nextTick } from 'vue';
+import { useI18n } from 'vue-i18n';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from './components/sections/HeroSection.vue';
@@ -12,36 +13,33 @@ import AnimatedGradientBackground from './components/AnimatedGradientBackground.
 
 gsap.registerPlugin(ScrollTrigger);
 
-onMounted(() => {
+const { locale } = useI18n();
+
+// تابعی برای ساخت متمرکز انیمیشن‌های اسکراب
+const createScrollAnimations = () => {
   const elements = document.querySelectorAll('.anim-stagger');
   
   elements.forEach((el) => {
-    // ایجاد یک تایم‌لاین اختصاصی متصل به اسکرول برای تک‌تک عناصر
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
-        start: "top 85%",   // شروع انیمیشن به محض ورود لبه‌ی بالای عنصر از پایین ویوپورت
-        end: "bottom 25%",   // پایان انیمیشن وقتی لبه‌ی پایین عنصر از بالای ویوپورت خارج می‌شود
-        scrub: 0.8,         // اتصال مستقیم و بسیار نرم به اسکرول (عدد 0.8 یک لختی و روانی جذاب ایجاد می‌کند)
+        start: "top 85%",   
+        end: "bottom 25%",   
+        scrub: 0.8,         
       }
     });
 
-    // گام اول: ورود از پایین صفحه (کم‌کم ظاهر و بزرگ می‌شود و بالا می‌آید)
     tl.fromTo(el, 
       { opacity: 0, scale: 0.8, y: 40 },
       { opacity: 1, scale: 1, y: 0, duration: 1, ease: "none" }
     )
-    
-    // گام دوم: حضور در محدوده طلایی وسط صفحه (تمرکز تصویری و بزرگ‌نمایی ملایم)
     .to(el, { 
       opacity: 1, 
-      scale: 1.03,        // ایجاد افکت بزرگ شدن و زوم ملایم در مرکز صفحه
+      scale: 1.03,        
       y: -10, 
       duration: 1.5, 
       ease: "none" 
     })
-    
-    // گام سوم: خروج از بالای صفحه (کم‌کم کوچک و محو می‌شود و به سمت بالا می‌رود)
     .to(el, { 
       opacity: 0, 
       scale: 0.8, 
@@ -50,10 +48,22 @@ onMounted(() => {
       ease: "none" 
     });
   });
+};
 
-  onUnmounted(() => {
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-  });
+onMounted(() => {
+  createScrollAnimations();
+});
+
+onUnmounted(() => {
+  ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+});
+
+// ترفند اصلی: گوش دادن به تغییرات زبان برای رفرش کردن تمام تریگرهای اسکرول
+watch(locale, async () => {
+  await nextTick(); // صبر برای رندر کامل متون زبان جدید
+  setTimeout(() => {
+    ScrollTrigger.refresh(); // ریفرش و محاسبه مجدد مختصات انیمیشن‌ها روی اسکرول
+  }, 100);
 });
 
 const scrollToSection = (sectionId: string) => {

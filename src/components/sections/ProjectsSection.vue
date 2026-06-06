@@ -7,7 +7,7 @@
         <div class="projects-grid">
           <div 
             v-for="project in projects" 
-            :key="project.title" 
+            :key="project.id" 
             class="project-card anim-stagger"
             @click="openModal(project)"
           >
@@ -88,6 +88,7 @@ import pwaApp from '@/assets/pwaApp.webp';
 import steelsara from '@/assets/steelsaraprg.webp';
 
 interface Project {
+  id: string;
   title: string;
   description: string;
   image: string;
@@ -101,6 +102,7 @@ const { t } = useI18n();
 // متون ارتقا یافته به سبک Case Study
 const projects = computed<Project[]>(() => [
   {
+    id: 'p1',
     title: t('projects.steelsara_pwa_title'),
     description: t('projects.steelsara_pwa_desc'),
     image: pwaApp,
@@ -108,6 +110,7 @@ const projects = computed<Project[]>(() => [
     liveUrl: 'https://steelsara.com/%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D9%87-%D8%AF%D9%82%DB%8C%D9%82-%D9%88%D8%B2%D9%86-%D8%A7%D8%B3%D8%AA%DB%8C%D9%84/',
   },
   {
+    id: 'p2',
     title: t('projects.menu_title'),
     description: t('projects.menu_desc'),
     image: digitalMenu,
@@ -116,6 +119,7 @@ const projects = computed<Project[]>(() => [
     githubUrl: 'https://github.com/Fadakari/nuxt-nitro-motor',
   },
   {
+    id: 'p3',
     title: t('projects.yazd_title'),
     description: t('projects.yazd_desc'),
     image: yazdMobile,
@@ -123,6 +127,7 @@ const projects = computed<Project[]>(() => [
     liveUrl: 'https://yazd-mobile.ir',
   },
   {
+    id: 'p4',
     title: t('projects.stock_title'), 
     description: t('projects.stock_desc'),
     image: projectStockImage,
@@ -131,6 +136,7 @@ const projects = computed<Project[]>(() => [
     githubUrl: 'https://github.com/Fadakari/stock_app',
   },
   {
+    id: 'p5',
     title: t('projects.bio_title'), 
     description: t('projects.bio_desc'),
     image: projectBioImage,
@@ -139,6 +145,7 @@ const projects = computed<Project[]>(() => [
     githubUrl: 'https://github.com/Fadakari/bio-site',
   },
   {
+    id: 'p6',
     title: t('projects.steelsara_seo_title'),
     description: t('projects.steelsara_seo_desc'),
     image: steelsara,
@@ -147,17 +154,19 @@ const projects = computed<Project[]>(() => [
   },
 ]);
 
-const selectedProject = ref<Project | null>(null);
+const selectedProjectId = ref<string | null>(null);
+
+const selectedProject = computed(() => {
+  return projects.value.find(p => p.id === selectedProjectId.value) || null;
+});
 
 const openModal = (project: Project) => {
-  selectedProject.value = project;
-  // غیرفعال کردن اسکرول صفحه اصلی وقتی پاپ‌آپ باز است
+  selectedProjectId.value = project.id;
   document.body.style.overflow = 'hidden';
 };
 
 const closeModal = () => {
-  selectedProject.value = null;
-  // فعال‌سازی مجدد اسکرول
+  selectedProjectId.value = null;
   document.body.style.overflow = '';
 };
 </script>
