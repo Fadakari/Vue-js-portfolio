@@ -7,6 +7,12 @@
   --card-bg-color: #1e293b;
 }
 
+html[dir="rtl"], 
+html[dir="rtl"] body, 
+html[dir="rtl"] * {
+  font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif !important;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

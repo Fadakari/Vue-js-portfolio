@@ -84,6 +84,8 @@ import projectStockImage from '@/assets/image.png';
 import projectBioImage from '@/assets/Screenshot 2025-12-01 125428.jpg';
 import digitalMenu from '@/assets/-2147483648_-210034.jpg';
 import yazdMobile from '@/assets/-2147483648_-210038.jpg';
+import pwaApp from '@/assets/pwaApp.png';
+import steelsara from '@/assets/steelsaraprg.png';
 
 interface Project {
   title: string;
@@ -98,6 +100,28 @@ const { t } = useI18n();
 
 // متون ارتقا یافته به سبک Case Study
 const projects = computed<Project[]>(() => [
+  {
+    title: t('projects.steelsara_pwa_title'),
+    description: t('projects.steelsara_pwa_desc'),
+    image: pwaApp,
+    tags: ['Vue 3', 'Service Worker', 'PWA'],
+    liveUrl: 'https://steelsara.com/%D9%85%D8%AD%D8%A7%D8%B3%D8%A8%D9%87-%D8%AF%D9%82%DB%8C%D9%82-%D9%88%D8%B2%D9%86-%D8%A7%D8%B3%D8%AA%DB%8C%D9%84/',
+  },
+  {
+    title: t('projects.menu_title'),
+    description: t('projects.menu_desc'),
+    image: digitalMenu,
+    tags: ['Nuxt.js', 'Supabase', 'Nitro', 'Vue'],
+    liveUrl: 'https://nuxt-nitro-motor-flrrimsiz-projects.vercel.app',
+    githubUrl: 'https://github.com/Fadakari/nuxt-nitro-motor',
+  },
+  {
+    title: t('projects.yazd_title'),
+    description: t('projects.yazd_desc'),
+    image: yazdMobile,
+    tags: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
+    liveUrl: 'https://yazd-mobile.ir',
+  },
   {
     title: t('projects.stock_title'), 
     description: t('projects.stock_desc'),
@@ -115,20 +139,12 @@ const projects = computed<Project[]>(() => [
     githubUrl: 'https://github.com/Fadakari/bio-site',
   },
   {
-    title: t('projects.menu_title'),
-    description: t('projects.menu_desc'),
-    image: digitalMenu,
-    tags: ['Nuxt.js', 'Supabase', 'Nitro', 'Vue'],
-    liveUrl: 'https://nuxt-nitro-motor-flrrimsiz-projects.vercel.app',
-    githubUrl: 'https://github.com/Fadakari/nuxt-nitro-motor',
+    title: t('projects.steelsara_seo_title'),
+    description: t('projects.steelsara_seo_desc'),
+    image: steelsara,
+    tags: ['Elementor', 'Html & Css', 'SEO', 'PHP & JS'],
+    liveUrl: 'https://steelsara.com/',
   },
-  {
-    title: t('projects.yazd_title'),
-    description: t('projects.yazd_desc'),
-    image: yazdMobile,
-    tags: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
-    liveUrl: 'https://yazd-mobile.ir',
-  }
 ]);
 
 const selectedProject = ref<Project | null>(null);

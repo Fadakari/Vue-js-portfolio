@@ -17,7 +17,7 @@
     "title": "About Me",
     "p1": "I am a Frontend-focused Software Engineer specialized in architecture and delivery of end-to-end applications. My core expertise revolves around crafting modern, pixel-perfect, and highly interactive user interfaces using Vue.js, Nuxt.js, and TypeScript.",
     "p2": "What sets me apart is my solid command over backend technologies like Python (Flask) and database management. This dual perspective allows me to build complete, production-ready systems independently.",
-    "p3": "While my current technical expertise is deeply rooted in software engineering, my long-term vision is to leverage these creative problem-solving skills to transition into directing and film production, ultimately merging technology with powerful visual storytelling."
+    "p3": "I am deeply committed to continuous learning and staying at the forefront of web technologies. Whether I am architecting a complex backend system or fine-tuning a frontend animation, my ultimate goal is to build scalable, maintainable, and high-quality software that drives business success and provides an exceptional user experience."
   },
   "skills": {
     "title": "My Tech Stack",
@@ -35,7 +35,11 @@
     "menu_title": "Serverless Digital Menu",
     "menu_desc": "Engineered an ultra-fast, serverless digital menu system tailored for a music academy utilizing the Nuxt Nitro engine and Supabase.",
     "yazd_title": "Yazd Mobile Storefront",
-    "yazd_desc": "Revamped the frontend architecture of an eCommerce storefront focusing on SEO and performance optimization using React and Next.js."
+    "yazd_desc": "Revamped the frontend architecture of an eCommerce storefront focusing on SEO and performance optimization using React and Next.js.",
+    "steelsara_seo_title": "Steel Sara B2B Platform & SEO Optimization",
+    "steelsara_seo_desc": "Orchestrated the frontend architecture and comprehensive SEO strategy for a major industrial platform. Seamlessly integrated Elementor with custom PHP/JS coding to deliver a highly optimized, accessible, and search-engine-friendly architecture.",
+    "steelsara_pwa_title": "Steel Sara Engineering PWA",
+    "steelsara_pwa_desc": "Engineered a high-performance Progressive Web App (PWA) using Vue 3 for live metal pricing and complex engineering calculations. Implemented advanced Service Worker caching strategies, infinite scrolling, hardware-accelerated Glassmorphism UI, and custom native-like installation flows."
   },
   "contact": {
     "title": "Get in Touch",

@@ -54,7 +54,7 @@ const props = defineProps<{
   scrollToSection: (id: string) => void;
 }>();
 
-const isDeepScrolled = computed(() => props.currentSectionIndex > 0);
+const isDeepScrolled = computed(() => isScrolled.value);
 
 
 
@@ -73,16 +73,16 @@ const generatePDF = () => {
     }">
     <div class="header-content">
       <div class="header-left">
-        <a href="#" @click.prevent="scrollToSectionHandler($event, 'hero')" class="brand-name">FADAKAR</a>
+        <a href="#" @click.prevent="scrollToSectionHandler('hero')" class="brand-name">FADAKAR</a>
       </div>
       
       <nav class="header-right desktop-nav">
         <ul class="nav-links">
-          <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">{{ $t('nav.home') }}</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">{{ $t('nav.about') }}</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">{{ $t('nav.skills') }}</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">{{ $t('nav.projects') }}</a></li>
-          <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">{{ $t('nav.contact') }}</a></li>
+          <li><a @click="scrollToSectionHandler('hero')" href="#hero">{{ $t('nav.home') }}</a></li>
+          <li><a @click="scrollToSectionHandler('about')" href="#about">{{ $t('nav.about') }}</a></li>
+          <li><a @click="scrollToSectionHandler('skills')" href="#skills">{{ $t('nav.skills') }}</a></li>
+          <li><a @click="scrollToSectionHandler('projects')" href="#projects">{{ $t('nav.projects') }}</a></li>
+          <li><a @click="scrollToSectionHandler('contact')" href="#contact">{{ $t('nav.contact') }}</a></li>
         </ul>
       </nav>
 
@@ -117,11 +117,11 @@ const generatePDF = () => {
     <div class="mobile-menu-panel">
         <nav>
             <ul class="mobile-nav-links">
-              <li><a @click="scrollToSectionHandler($event, 'hero')" href="#hero">Home</a></li>
-              <li><a @click="scrollToSectionHandler($event, 'about')" href="#about">About</a></li>
-              <li><a @click="scrollToSectionHandler($event, 'skills')" href="#skills">Skills</a></li>
-              <li><a @click="scrollToSectionHandler($event, 'projects')" href="#projects">Projects</a></li>
-              <li><a @click="scrollToSectionHandler($event, 'contact')" href="#contact">Contact</a></li>
+              <li><a @click="scrollToSectionHandler('hero')" href="#hero">Home</a></li>
+              <li><a @click="scrollToSectionHandler('about')" href="#about">About</a></li>
+              <li><a @click="scrollToSectionHandler('skills')" href="#skills">Skills</a></li>
+              <li><a @click="scrollToSectionHandler('projects')" href="#projects">Projects</a></li>
+              <li><a @click="scrollToSectionHandler('contact')" href="#contact">Contact</a></li>
             </ul>
         </nav>
     </div>

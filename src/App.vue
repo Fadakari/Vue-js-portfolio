@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch, nextTick } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { onMounted, onUnmounted } from 'vue';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from './components/sections/HeroSection.vue';
@@ -13,16 +12,6 @@ import AnimatedGradientBackground from './components/AnimatedGradientBackground.
 
 gsap.registerPlugin(ScrollTrigger);
 
-const { locale } = useI18n();
-
-// مانیتور کردن تغییر زبان برای آپدیت مختصات انیمیشن‌ها
-watch(locale, async () => {
-  await nextTick(); // صبر می‌کنیم تا DOM و متن‌های جدید کاملاً رندر شوند
-  setTimeout(() => {
-    ScrollTrigger.refresh(); // ریفرش کردن ارتفاع و تریگرهای GSAP
-  }, 100); // یک تاخیر بسیار کوتاه برای اطمینان از اعمال کامل استایل‌های جدید
-});
-
 onMounted(() => {
   const elements = document.querySelectorAll('.anim-stagger');
   
@@ -31,7 +20,7 @@ onMounted(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
-        start: "top 90%",   // شروع انیمیشن به محض ورود لبه‌ی بالای عنصر از پایین ویوپورت
+        start: "top 85%",   // شروع انیمیشن به محض ورود لبه‌ی بالای عنصر از پایین ویوپورت
         end: "bottom 25%",   // پایان انیمیشن وقتی لبه‌ی پایین عنصر از بالای ویوپورت خارج می‌شود
         scrub: 0.8,         // اتصال مستقیم و بسیار نرم به اسکرول (عدد 0.8 یک لختی و روانی جذاب ایجاد می‌کند)
       }
