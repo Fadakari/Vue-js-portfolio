@@ -25,7 +25,7 @@ const createScrollAnimations = () => {
         trigger: el,
         start: "top 85%",   
         end: "bottom 25%",   
-        scrub: 0.8,         
+        scrub: window.innerWidth < 768 ? 0.4 : 0.8,
       }
     });
 

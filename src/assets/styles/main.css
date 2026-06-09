@@ -125,3 +125,17 @@ html {
     z-index: -1 !important;
   }
 }
+
+
+.project-card, .skill-card {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* ۲. ایزوله کردن رندر سکشن‌ها (جلوگیری از درگیری کل صفحه هنگام اسکرول) */
+section {
+  contain: paint layout;
+}

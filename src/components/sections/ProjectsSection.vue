@@ -11,7 +11,12 @@
             class="project-card anim-stagger"
             @click="openModal(project)"
           >
-            <img :src="project.image" :alt="project.title" class="card-bg-image" />
+            <img 
+              :src="project.image"
+              :alt="project.title"
+              class="card-bg-image"
+              loading="lazy" 
+              decoding="async" />
             
             <div class="card-gradient-overlay"></div>
             

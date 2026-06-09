@@ -97,4 +97,15 @@ onMounted(() => {
   left: 40% !important;
 }
 
+@media (max-width: 768px) {
+  .gradients-container {
+    filter: blur(40px); /* کاهش بلور محفظه اصلی */
+  }
+  .blob {
+    width: 350px; /* کوچک کردن ابعاد حباب‌ها */
+    height: 350px;
+    filter: blur(30px); /* کاهش بلور خود حباب‌ها */
+    opacity: 0.5; /* کاهش شفافیت برای درگیری کمتر پیکسل‌ها */
+  }
+}
 </style>
