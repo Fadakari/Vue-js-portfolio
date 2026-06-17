@@ -10,6 +10,7 @@ import ProjectsSection from './components/sections/ProjectsSection.vue';
 import ContactSection from './components/sections/ContactSection.vue';
 import Header from './components/Header.vue';
 import AnimatedGradientBackground from './components/AnimatedGradientBackground.vue';
+import FooterSection from './components/sections/FooterSection.vue';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,6 +85,7 @@ const scrollToSection = (sectionId: string) => {
     <ProjectsSection />
     <ContactSection />
   </main>
+  <FooterSection />
 </template>
 
 <style>

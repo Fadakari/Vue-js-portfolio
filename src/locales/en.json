@@ -10,14 +10,14 @@
   "hero": {
     "name": "Erfan Hoseini Fadakar",
     "title": "Full-Stack Software Engineer | Vue.js & Python Expert",
-    "description": "I build scalable, high-performance web applications tailored to streamline business processes. Bridging the gap between elegant UI and robust backend logic.",
+    "description": "As a Full-Stack Software Engineer, I architect scalable, high-performance web applications that drive business efficiency. I bridge the gap between pixel-perfect, elegant UIs and robust backend systems.",
     "connect": "Let's Connect"
   },
   "about": {
     "title": "About Me",
-    "p1": "I am a Frontend-focused Software Engineer specialized in architecture and delivery of end-to-end applications. My core expertise revolves around crafting modern, pixel-perfect, and highly interactive user interfaces using Vue.js, Nuxt.js, and TypeScript.",
-    "p2": "What sets me apart is my solid command over backend technologies like Python (Flask) and database management. This dual perspective allows me to build complete, production-ready systems independently.",
-    "p3": "I am deeply committed to continuous learning and staying at the forefront of web technologies. Whether I am architecting a complex backend system or fine-tuning a frontend animation, my ultimate goal is to build scalable, maintainable, and high-quality software that drives business success and provides an exceptional user experience."
+    "p1": "I am Erfan Fadakar, a Full-Stack Web Developer specialized in the end-to-end architecture of complex digital products. My core expertise revolves around crafting modern, highly interactive user interfaces using Vue.js, Nuxt.js, and TypeScript, ensuring every pixel serves a strategic purpose.",
+    "p2": "Beyond frontend aesthetics, my engineering foundation is built upon robust backend technologies, including Python, Flask, and advanced database management. This comprehensive full-stack perspective enables me, as a sole developer, to deliver secure, production-ready systems that scale seamlessly.",
+    "p3": "At Fadakar Dev, my philosophy is rooted in continuous evolution and technical excellence. Whether architecting a resilient backend microservice or fine-tuning a GSAP scroll animation, my ultimate objective is to engineer high-quality software that empowers businesses and delivers an exceptional, inclusive user experience."
   },
   "skills": {
     "title": "My Tech Stack",
